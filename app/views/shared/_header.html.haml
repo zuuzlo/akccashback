@@ -1,0 +1,54 @@
+.container
+  .row
+    %nav.navbar.navbar-default{role: 'navigation'}
+      .navbar-header
+        %button.navbar-toggle{type: 'button', "data-toggle" => 'collapse', "data-target" => ".navbar-ex1-collapse"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand(href='#') All Kohls Coupons Cash Back
+      .collapse.navbar-collapse.navbar-ex1-collapse 
+        %ul.nav.navbar-nav
+          %li{:class => "#{'active' if current_page?(user_path(current_user))}"}=link_to "Home", user_url(current_user)
+          %li{:class => "#{'active' if current_page?(stores_path)}"}=link_to "Stores", stores_url
+          %li.dropdown
+            %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+              Categories
+              %b.caret
+            %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+              -Category.with_coupons.each do |cat|
+                %li
+                  = link_to category_path(cat) do
+                    #{cat.name}            
+          %li.dropdown
+            %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+              Offer Types
+              %b.caret
+            %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+              -Ctype.with_coupons.each do |typ|
+                %li= link_to typ.name, ctype_path(typ)  
+        %form.navbar-form.navbar-left{ action: search_coupons_path, method: "get"}
+          %div.form-group
+            %input.form-control{type:"text", name: "search_term", placeholder:"Search", value: "" }
+          %button.btn.btn-default(type="submit") Search
+        - if logged_in?  
+          %ul.nav.navbar-nav.navbar-right 
+            %li.dropdown
+              %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+                Welcome, #{current_user.full_name}
+                %b.caret
+              %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+                %li
+                  = link_to 'Invite a Friend', '#'
+                %li
+                  = link_to 'Cash Back Transactions', '#'
+                %li
+                  %a(href="#") Plan and Billing
+                %li
+                  = link_to 'Sign Out', sign_out_path
+        - else
+          %ul.nav.navbar-nav.navbar-right
+            %li=link_to "Sign in", sign_in_path
+            %li=link_to "Register", new_user_path
