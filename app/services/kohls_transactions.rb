@@ -7,7 +7,6 @@ class KohlsTransactions
 
     textlinks = LsLinkdirectAPI::TextLinks.new
     params = { mid: 38605, cat: -1, endDate: Time.now.strftime("%m%d%Y") }
-    # all params are optional gem will add defaults where required
     response = textlinks.get(params)
     response.data.each do |item|
       coupon_hash = {
@@ -17,9 +16,9 @@ class KohlsTransactions
         description: item.textDisplay,
         title: LsTransactions.title_shorten("#{item.linkName} #{item.textDisplay}"),
         start_date: Time.parse(item.startDate),
-        code: # TODO find(link.couponcode if link.couponcode),
+        code: nil, # TODO find(link.couponcode if link.couponcode),
         restriction: "nil",
-        image: TODO,
+        image: "TODO",
         impression_pixel: item.showURL,
         coupon_source_id: 1  
       }
@@ -31,15 +30,14 @@ class KohlsTransactions
       end
 
       new_coupon = Coupon.new(coupon_hash)
-      
+      name_check = "#{item.linkName} #{item.textDisplay}"
       if new_coupon.save
-  
-        link.categories.category.each do | category |
-          new_coupon.categories << Category.find_by_ls_id(category["id"].to_i) if category["id"]
+        PjTransactions.pj_find_category(name_check).each do | category |
+          new_coupon.categories << Category.find_by_ls_id(category) if category
         end
 
-        link.promotiontypes.promotiontype.each do | type_x |
-          new_coupon.ctypes << Ctype.find_by_ls_id(type_x["id"].to_i) if type_x["id"]
+        PjTransactions.pj_find_type(name_check).each do | type_x |
+          new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
         end
       end
     end
