@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140405130912) do
+ActiveRecord::Schema.define(version: 20140607024410) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -69,6 +72,14 @@ ActiveRecord::Schema.define(version: 20140405130912) do
   add_index "coupons_ctypes", ["coupon_id"], name: "index_coupons_ctypes_on_coupon_id", using: :btree
   add_index "coupons_ctypes", ["ctype_id"], name: "index_coupons_ctypes_on_ctype_id", using: :btree
 
+  create_table "coupons_kohls_categories", id: false, force: true do |t|
+    t.integer "coupon_id",         null: false
+    t.integer "kohls_category_id", null: false
+  end
+
+  add_index "coupons_kohls_categories", ["coupon_id"], name: "index_coupons_kohls_categories_on_coupon_id", using: :btree
+  add_index "coupons_kohls_categories", ["kohls_category_id"], name: "index_coupons_kohls_categories_on_kohls_category_id", using: :btree
+
   create_table "coupons_users", id: false, force: true do |t|
     t.integer "coupon_id", null: false
     t.integer "user_id",   null: false
@@ -86,6 +97,14 @@ ActiveRecord::Schema.define(version: 20140405130912) do
   end
 
   add_index "ctypes", ["slug"], name: "index_ctypes_on_slug", using: :btree
+
+  create_table "kohls_categories", force: true do |t|
+    t.string   "name"
+    t.integer  "kc_id"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "stores", force: true do |t|
     t.string   "name"

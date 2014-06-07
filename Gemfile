@@ -9,7 +9,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'fabrication'
-gem 'bcrypt-ruby', '3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
+#gem 'bcrypt-ruby'
 gem 'ebay_enterprise_affiliate_network'
 gem 'find_keywords'
 gem 'ls_linkdirect_api'
@@ -64,6 +65,6 @@ group :test do
   gem "selenium-webdriver", "~> 2.34.0"
   gem "vcr"
   gem "webmock", "~> 1.11.0"
-  gem "capybara-webkit"
+ # gem "capybara-webkit"
   gem "recursive-open-struct", "~> 0.4.3"
 end
