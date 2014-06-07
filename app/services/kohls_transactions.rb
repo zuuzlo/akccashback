@@ -95,6 +95,43 @@ class KohlsTransactions
     onlys
   end
 
+  def self.find_kohls_type(term)
+    #1=> 'Dollar Off', 2=> 'Percent Off', 3=> 'Free Shipping', 4=>'Coupon Code', 4=>'General Promotion'
+    kohls_type_hash = {
+      1 => ['$'],
+      #2 => ['%'],
+      3 => ['free shipping', 'ships free'],
+      4 => ['code']
+    }
+
+    types = []
+    
+    kohls_type_hash.each do | cat_id, match_words |
+      types << cat_id if have_term?(match_words, term)
+    end
+    types << 2 if term.include? '%'
+    types << 5 if types.count == 0
+    
+    types    
+  end
+
+  def self.find_coupon_code(term)
+    code_array = ['code', 'Code', 'code:', 'Code:']
+    array = term.split(" ")
+    term_array = array.collect(&:strip)
+    code_have = []
+    code_array.each do | code |
+      code_have << code if have_term?(term_array, code) 
+    end
+
+    if code_have.size != 0
+      require 'pry'; binding.pry
+      array[array.index(code_have[0]).to_i + 1]
+    else
+      nil
+    end
+  end
+
   private
 
   def self.have_term?(words, term)

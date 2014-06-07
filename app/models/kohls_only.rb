@@ -1,4 +1,4 @@
-class KohlsCategory < ActiveRecord::Base
+class KohlsOnly < ActiveRecord::Base
 
   has_and_belongs_to_many :coupons, -> { order "end_date ASC" }
   validates :name, presence: true
@@ -7,6 +7,6 @@ class KohlsCategory < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   def self.with_coupons
-    KohlsCategory.joins(:coupons).where(["end_date >= :time ", { :time => DateTime.current }]).uniq.order( 'name ASC' )
+    KohlsOnly.joins(:coupons).where(["end_date >= :time ", { :time => DateTime.current }]).uniq.order( 'name ASC' )
   end
 end

@@ -54,3 +54,10 @@ Ctype.create!( name: 'Percentage Off', ls_id: '11' )
 Ctype.create!( name: 'Deal of the Day/Week', ls_id: '14' )
 Ctype.create!( name: 'Black Friday', ls_id: '30' )
 Ctype.create!( name: 'Cyber Monday', ls_id: '31' )
+
+kcat_hash = { 1 => 'For The Home', 2=> 'Bed & Bath', 3=> 'Furniture', 4=> 'Women', 5=> 'Swin', 6=> 'Men', 7=> 'Teens', 8=> 'Kids', 9=> 'Baby', 10=> 'Shoes', 11=> 'Jewlery & Watches', 12=> 'Sports Fan Shop' }
+
+kcat_hash.each do | id, cat_name |
+  KohlsCategory.create!( name: cat_name, kc_id: id )
+end
+

@@ -86,4 +86,37 @@ describe KohlsTransactions do
       expect(KohlsTransactions.find_kohls_only('hello world')).to eq([])
     end
   end
+
+  describe "find_kohls_type" do
+    it "returns 5 for nothing" do
+      expect(KohlsTransactions.find_kohls_type('hello world')).to eq([5])
+    end
+
+    it "returns 1 for $" do
+      expect(KohlsTransactions.find_kohls_type('save $50 on new cat')).to eq([1])
+    end
+
+    it "returns 2 for % off" do
+      expect(KohlsTransactions.find_kohls_type('50% off today only')).to eq([2])
+    end
+
+    it "returns 3 for free shipping" do
+      expect(KohlsTransactions.find_kohls_type('today only free shipping')).to eq([3])
+    end
+
+    it "returns 4 for Code" do
+      expect(KohlsTransactions.find_kohls_type('Save with code SUNNY50')).to eq([4])
+    end
+  end
+
+  describe "find_coupon_code" do
+    it "returns nil if no code found" do
+      expect(KohlsTransactions.find_coupon_code('hello world')).to eq(nil)
+    end
+
+    it "returns coupon code if present" do
+      expect(KohlsTransactions.find_coupon_code('Extra 15% off All Nunn Bush shoes and sandals. Promo code NUNNBUSH15. 6/9-6/23')).to eq('NUNNBUSH15')
+    end
+
+  end
 end

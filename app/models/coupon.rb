@@ -6,6 +6,7 @@ class Coupon < ActiveRecord::Base
   belongs_to :store
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :kohls_categories
+  has_and_belongs_to_many :kohls_onlies
   has_and_belongs_to_many :ctypes
   has_and_belongs_to_many :users
   

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Coupon do
   it { should belong_to(:store) }
   it { should have_and_belong_to_many(:categories) }
+  it { should have_and_belong_to_many(:kohls_categories) }
+  it { should have_and_belong_to_many(:kohls_onlies) }
   it { should have_and_belong_to_many(:ctypes) }
   it { should validate_presence_of(:id_of_coupon) }
   it { should validate_uniqueness_of(:id_of_coupon) }
