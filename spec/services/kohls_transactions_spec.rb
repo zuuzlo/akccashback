@@ -40,7 +40,7 @@ describe KohlsTransactions do
       end
 
       it "adds type"
-      it "adds coupon to kohls_department"
+      it "adds coupon to kohls_category"
       it "adds coupon to kohls_types"
       it "adds coupon to only_at_kohls"
     end

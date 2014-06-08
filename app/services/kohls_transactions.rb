@@ -39,6 +39,10 @@ class KohlsTransactions
         PjTransactions.pj_find_type(name_check).each do | type_x |
           new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
         end
+
+        find_kohls_cat(name_check).each do | kohls_cat |
+          new_coupon.kohls_categories << KohlsCategory.find_by_kc_id(kohls_cat) if kohls_cat
+        end
       end
     end
   end
@@ -125,8 +129,7 @@ class KohlsTransactions
     end
 
     if code_have.size != 0
-      require 'pry'; binding.pry
-      array[array.index(code_have[0]).to_i + 1]
+      array[array.index(code_have[0]).to_i + 1].gsub!(/[^a-zA-Z0-9]/,'')
     else
       nil
     end
