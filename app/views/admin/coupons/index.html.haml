@@ -1,0 +1,11 @@
+.container
+  .page-header
+    %h1 Admin - All Coupons
+  .s12.l12
+    %table.table
+      %tr
+        %th Image
+        %th Title
+        %th Description
+        %th Action
+      = render partial: 'shared/admin_coupon', locals: { coupons: @coupons }

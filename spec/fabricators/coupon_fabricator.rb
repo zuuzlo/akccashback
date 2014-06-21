@@ -7,4 +7,5 @@ Fabricator(:coupon) do
   code { Faker::Lorem.word }
   restriction { Faker::Lorem.sentence( word_count = 5 ) }
   link { Faker::Internet.url }
+  image { Faker::Internet.url }
 end

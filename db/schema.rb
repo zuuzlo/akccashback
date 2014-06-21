@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607115510) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20140608024901) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -88,6 +85,14 @@ ActiveRecord::Schema.define(version: 20140607115510) do
   add_index "coupons_kohls_onlies", ["coupon_id"], name: "index_coupons_kohls_onlies_on_coupon_id", using: :btree
   add_index "coupons_kohls_onlies", ["kohls_only_id"], name: "index_coupons_kohls_onlies_on_kohls_only_id", using: :btree
 
+  create_table "coupons_kohls_types", id: false, force: true do |t|
+    t.integer "coupon_id",     null: false
+    t.integer "kohls_type_id", null: false
+  end
+
+  add_index "coupons_kohls_types", ["coupon_id"], name: "index_coupons_kohls_types_on_coupon_id", using: :btree
+  add_index "coupons_kohls_types", ["kohls_type_id"], name: "index_coupons_kohls_types_on_kohls_type_id", using: :btree
+
   create_table "coupons_users", id: false, force: true do |t|
     t.integer "coupon_id", null: false
     t.integer "user_id",   null: false
@@ -119,6 +124,14 @@ ActiveRecord::Schema.define(version: 20140607115510) do
     t.integer  "kc_id"
     t.string   "slug"
     t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "kohls_types", force: true do |t|
+    t.string   "name"
+    t.integer  "kc_id"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

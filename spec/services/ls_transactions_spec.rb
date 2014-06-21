@@ -133,7 +133,11 @@ describe LsTransactions do
 
   describe "title_shorten" do
     it "return shorten title" do
-      expect(LsTransactions.title_shorten("Get More Easter for Your Money with Great Deals & Free Shipping on Orders at Walmart.com!")).to eq("Your Money With Great Deals  Free Shipping")
+      expect(LsTransactions.title_shorten("Get More Easter for Your Money with Great Deals & Free Shipping on Orders at Walmart.com!")).to eq("Your Money With Great Deals & Free Shipping")
+    end
+
+    it "removes slashes that are either direction" do
+      expect(LsTransactions.title_shorten("$34.99 All Chaps Father & Son tie sets reg. $58. 6/4-6/10.")).to eq("Chaps Father & Son Tie Sets ")
     end
   end
 end

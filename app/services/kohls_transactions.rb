@@ -2,7 +2,7 @@ class KohlsTransactions
 
   require 'open-uri'
   LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
-
+  LinkshareAPI.token = ENV["LINKSHARE_TOKEN"]
   def self.kohls_update_coupons
 
     textlinks = LsLinkdirectAPI::TextLinks.new
@@ -12,13 +12,13 @@ class KohlsTransactions
       coupon_hash = {
         store_id: Store.find_by_id_of_store(item.mid.to_i).id,
         link: item.clickURL,
-        id_of_coupon: item.linkID,
-        description: item.textDisplay,
-        title: LsTransactions.title_shorten("#{item.linkName} #{item.textDisplay}"),
+        id_of_coupon: item.linkID.to_i,
+        description: "#{item.linkName} #{item.textDisplay}",
+        title: LsTransactions.title_shorten("#{item.textDisplay}"),
         start_date: Time.parse(item.startDate),
-        code: nil, # TODO find(link.couponcode if link.couponcode),
-        restriction: "nil",
-        image: "TODO",
+        code: find_coupon_code("#{item.textDisplay}"),
+        restriction: nil,
+        #image: "TODO",
         impression_pixel: item.showURL,
         coupon_source_id: 1  
       }
@@ -30,19 +30,36 @@ class KohlsTransactions
       end
 
       new_coupon = Coupon.new(coupon_hash)
-      name_check = FindKeywords::Keywords.new("#{item.linkName} #{item.textDisplay}").keywords.join(" ")
+      name_check = FindKeywords::Keywords.new("#{item.linkName} #{item.textDisplay} #{item.categoryName}").keywords.join(" ")
+      name_check_raw = "#{item.linkName} #{item.textDisplay} #{item.categoryName}"
+      
       if new_coupon.save
-        PjTransactions.pj_find_category(name_check).each do | category |
-          new_coupon.categories << Category.find_by_ls_id(category) if category
+        
+        PjTransactions.pj_find_category(name_check).each do | cat |
+          #require 'pry'; binding.pry
+          new_coupon.categories << Category.find_by_ls_id(cat) if cat
         end
 
-        PjTransactions.pj_find_type(name_check).each do | type_x |
+        PjTransactions.pj_find_type(name_check_raw).each do | type_x |
+          #require 'pry'; binding.pry
           new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
         end
 
         find_kohls_cat(name_check).each do | kohls_cat |
           new_coupon.kohls_categories << KohlsCategory.find_by_kc_id(kohls_cat) if kohls_cat
         end
+
+        find_kohls_only(name_check).each do | only_kohls |
+          new_coupon.kohls_onlies << KohlsOnly.find_by_kc_id(only_kohls) if only_kohls
+        end
+
+        find_kohls_type(name_check).each do | type_kohls |
+          new_coupon.kohls_types << KohlsType.find_by_kc_id(type_kohls) if type_kohls
+        end
+      
+        new_coupon.kohls_types << KohlsType.find_by_kc_id(6) if new_coupon.code
+        
+        new_coupon.update(image: find_product_image(name_check))
       end
     end
   end
@@ -120,18 +137,41 @@ class KohlsTransactions
   end
 
   def self.find_coupon_code(term)
-    code_array = ['code', 'Code', 'code:', 'Code:']
-    array = term.split(" ")
-    term_array = array.collect(&:strip)
-    code_have = []
-    code_array.each do | code |
-      code_have << code if have_term?(term_array, code) 
-    end
-
-    if code_have.size != 0
-      array[array.index(code_have[0]).to_i + 1].gsub!(/[^a-zA-Z0-9]/,'')
+    if term.include? " "
+      code_array = ["code","code:", "Code", "Code:"]
+      term_array = term.split(" ").collect(&:strip)
+      code_have = []
+      #require 'pry'; binding.pry
+      code_array.each do | code |
+        code_have << code if term_array.include?("#{code}")
+      end
+      
+      if code_have.size != 0
+        term_array[term_array.index(code_have[0]).to_i + 1].gsub!(/[^a-zA-Z0-9]/,'')
+      else
+        nil
+      end
     else
       nil
+    end
+  end
+
+  def self.find_product_image(keywords)
+    keywords = 'kohls' if keywords == ""
+    options = {
+      one: keywords,
+      mid: 38605, # kohls
+      #cat: "Electronics",
+      max: 1,
+      #sort: :retailprice,
+      #sorttype: :asc
+    }
+    response = LinkshareAPI.product_search(options)
+
+    if response.total_matches == 0
+      nil
+    else
+      response.data.first.imageurl
     end
   end
 

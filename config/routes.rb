@@ -11,7 +11,7 @@ Akccashback::Application.routes.draw do
   resources :users, only: [:new, :create, :show]
   get 'register/:token', to: "users#register_confirmation", as: 'register_with_token'
   
-  resources :stores, except: [:destory] do
+  resources :stores, except: [:destroy] do
     member do 
       post 'save_store'
       post 'remove_store'
@@ -32,6 +32,12 @@ Akccashback::Application.routes.draw do
       get 'tab_coupon_codes'
       get 'tab_offers'
     end
+  end
+
+  namespace :admin do
+    resources :coupons, only: [:index, :new, :create, :edit, :destroy]
+    get 'get_kohls_coupons', to: 'coupons#get_kohls_coupons'
+    #resources :payments, only: [:index, :new, :create]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

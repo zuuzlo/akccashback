@@ -107,8 +107,11 @@ class LsTransactions
     title.delete!('()') if title.include?('(')
     name = title.strip.downcase
     name_array = name.split(" ")
+    items_to_remove = ['$', '%', 'reg', 'all', 'orig']
 
-    name_array.reject! { |item| item.include?('$'||'%') }
+    items_to_remove.each do |remove|
+      name_array.reject! { |item| item.include?(remove) }
+    end
 
     name = name_array.join(" ")
 
@@ -140,6 +143,9 @@ class LsTransactions
       name = name_array.join(" ")
     end
     
-    name.gsub(/[[:punct:]]/,"").titleize
+    #name.gsub!(/[[:punct:]]/,"")
+    name.gsub!(/[\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-]/,"")
+    name.gsub!(/#{Regexp.escape('\/')}/, "")
+    name.gsub(/\d\s?/, "").titleize
   end
 end

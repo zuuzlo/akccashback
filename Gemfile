@@ -29,6 +29,7 @@ gem 'linkshare_api', '0.2.0'
 gem 'figaro'
 gem "sinatra", "~> 1.4.5"
 gem 'pg'
+gem 'bootstrap-datepicker-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

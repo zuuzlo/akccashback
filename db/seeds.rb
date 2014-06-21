@@ -61,3 +61,15 @@ kcat_hash.each do | id, cat_name |
   KohlsCategory.create!( name: cat_name, kc_id: id )
 end
 
+konly_hash = {1 => 'Lauren Conrad', 2 => "Jennifer Lopez", 3 => 'Marc Anthony',
+  4 => 'Gold Clearence', 5 => 'Rock & Republic', 6 => "Candie's", 7 => "Dana Buchman", 8 => "Elle" }
+
+konly_hash.each do | id, only_name |
+  KohlsOnly.create!( name: only_name, kc_id: id )
+end
+
+ktype_hash = { 1 => 'Dollar Off', 2 => 'Percent Off', 3 => 'Free Shipping', 4 => 'Coupon Code', 5 => 'General Promotion', 6 => 'Coupon Code' }
+
+ktype_hash.each do | id, type_name |
+  KohlsType.create!( name: type_name, kc_id: id )
+end

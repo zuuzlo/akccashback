@@ -81,4 +81,13 @@ module CouponsHelper
       end
     end
   end
+
+  def product_image(coupon)
+    
+    if coupon.image
+      image_tag("#{coupon.image}", size: "125x125", class: "img-circle")
+    else
+      image_tag( "#{coupon.store_image}",size: "125x125")
+    end
+  end
 end

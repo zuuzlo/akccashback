@@ -17,7 +17,7 @@ class Store < ActiveRecord::Base
   def self.load_stores
     oo = Roo::Excel.new("#{Rails.root}/lsstores.xls")
     oo.default_sheet = oo.sheets.first
-    2.upto(186) do | line |
+    2.upto(2) do | line |
       store_hash = {
         name: oo.cell(line, 'A'),
         id_of_store: oo.cell(line, 'C').to_i,
