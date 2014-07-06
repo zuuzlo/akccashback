@@ -9,12 +9,12 @@
         .well.well-sm
           %p
             %b #{coupon.description}
-          -if coupon.code
+          -if coupon.code 
             %h5
               Coupon Code:
               %b
                 #{coupon.code}
-          %span.label.label-warning
+          %span.label.label-default
             #{coupon.store_commission} 
             \% cash back
         = button_link(coupon)

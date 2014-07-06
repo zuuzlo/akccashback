@@ -7,6 +7,7 @@
 };
 $(document).ready(ready);
 $(document).on("page:load", ready);
+$(document).on("page:change", ready);
 $.fn.equalizeHeights = function() {
   var maxHeight = this.map(function( i, e ) {
     return $( e ).height();

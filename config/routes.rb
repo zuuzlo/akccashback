@@ -4,7 +4,7 @@ Akccashback::Application.routes.draw do
   post "/sign_in", to: "sessions#create"
   get "/sign_out", to: "sessions#destroy"
 
-  root to: 'static_pages#front'
+  root to: 'coupons#index'
 
   get 'ui(/:action)', controller: 'ui'
   
@@ -35,8 +35,9 @@ Akccashback::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :coupons, only: [:index, :new, :create, :edit, :destroy]
+    resources :coupons, only: [:index, :new, :create, :edit, :update, :destroy]
     get 'get_kohls_coupons', to: 'coupons#get_kohls_coupons'
+    get 'delete_kohls_coupons', to: 'coupons#delete_kohls_coupons'
     #resources :payments, only: [:index, :new, :create]
   end
   # The priority is based upon order of creation: first created -> highest priority.

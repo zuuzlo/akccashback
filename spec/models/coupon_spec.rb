@@ -59,4 +59,19 @@ describe Coupon do
       expect(search.size).to eq 3
     end
   end
+  describe 'nil_if_blank on code' do
+
+      let(:store1) { Fabricate(:store, name: 'store1', commission: 4 ) }
+      let(:coupon1) { Fabricate(:coupon, title: "coupon1", description: 'this is a good coupon', end_date: Time.now + 1.day, store_id: store1.id ) }
+
+    it "should not save code as a blank" do
+      coupon1.update(code: '')
+      expect(coupon1.code).to be_nil
+    end
+
+    it "should not save restriction as a blank" do
+      coupon1.update(restriction:'')
+      expect(coupon1.restriction).to be_nil
+    end
+  end
 end

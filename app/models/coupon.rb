@@ -3,6 +3,9 @@ class Coupon < ActiveRecord::Base
   require 'action_view'
   include ActionView::Helpers::DateHelper
 
+  NULL_ATTRS = %w( code restriction )
+  before_save :nil_if_blank
+
   belongs_to :store
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :kohls_categories
@@ -78,5 +81,10 @@ class Coupon < ActiveRecord::Base
         end
       end
     end
+  end
+  protected
+
+  def nil_if_blank
+    NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
 end
