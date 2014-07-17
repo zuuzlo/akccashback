@@ -8,27 +8,38 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        = link_to 'All Kohls Coupons Cash Back', root_path, class: 'navbar-brand'
+        = link_to 'All Kohls Coupons Cashback', root_path, class: 'navbar-brand'
       .collapse.navbar-collapse.navbar-ex1-collapse 
         %ul.nav.navbar-nav
-          %li{:class => "#{'active' if current_page?(user_path(current_user))}"}=link_to "Home", user_url(current_user)
-          %li{:class => "#{'active' if current_page?(stores_path)}"}=link_to "All Offers", root_url
+          - if logged_in?
+            %li{:class => "#{'active' if current_page?(user_path(current_user))}"}=link_to "Home", user_url(current_user)
           %li.dropdown
             %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
               Categories
               %b.caret
             %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-              -Category.with_coupons.each do |cat|
+              -KohlsCategory.with_coupons.each do |cat|
                 %li
-                  = link_to category_path(cat) do
+                  = link_to kohls_category_path(cat) do
                     #{cat.name}            
           %li.dropdown
             %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
               Offer Types
               %b.caret
             %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-              -Ctype.with_coupons.each do |typ|
-                %li= link_to typ.name, ctype_path(typ)  
+              -KohlsType.with_coupons.each do |typ|
+                %li
+                  = link_to kohls_type_path(typ) do
+                    #{typ.name}
+          %li.dropdown
+            %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+              Only at Kohls
+              %b.caret
+            %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+              -KohlsOnly.with_coupons.each do |only|
+                %li
+                  = link_to kohls_only_path(only) do
+                    #{only.name} 
         %form.navbar-form.navbar-left{ action: search_coupons_path, method: "get"}
           %div.form-group
             %input.form-control{type:"text", name: "search_term", placeholder:"Search", value: "" }

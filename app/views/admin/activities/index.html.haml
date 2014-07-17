@@ -1,0 +1,17 @@
+.container
+  .page-header
+    %h1 Admin - Activities
+  .s12.l12
+    .row
+      .s3.l3
+        = button_to "Get Activities", { action: "get_activities" }, method: :get, class: "btn btn-success"
+    %h1
+      Total Activities
+    %table.table
+      %tr
+        %th User
+        %th Store
+        %th Clicks
+        %th Sales
+        %th Commission
+      = render partial: 'shared/admin_activity', locals: { activities: @activities }

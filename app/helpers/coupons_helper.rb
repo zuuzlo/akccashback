@@ -9,9 +9,9 @@ module CouponsHelper
       end
     else
       if coupon.coupon_source_id == 1
-        @link = coupon.link + "&u1=zuuzlo"
+        @link = coupon.link + "&u1=akccb"
       else
-        @link = coupon.link + "?sid=zuuzlo"
+        @link = coupon.link + "?sid=akccb"
       end
     end
 

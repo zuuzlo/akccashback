@@ -20,6 +20,9 @@ Akccashback::Application.routes.draw do
 
   resources :categories, only: [:show]
   resources :ctypes, only: [:show]
+  resources :kohls_categories, only: [:show]
+  resources :kohls_types, only: [:show]
+  resources :kohls_onlies, only: [:show]
 
   resources :coupons do
     member do
@@ -38,7 +41,9 @@ Akccashback::Application.routes.draw do
     resources :coupons, only: [:index, :new, :create, :edit, :update, :destroy]
     get 'get_kohls_coupons', to: 'coupons#get_kohls_coupons'
     get 'delete_kohls_coupons', to: 'coupons#delete_kohls_coupons'
-    #resources :payments, only: [:index, :new, :create]
+    
+    resources :activities, only: [:index]
+    get 'get_activities', to: 'activities#get_activities'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -76,12 +76,12 @@ describe KohlsTransactions do
         body: xml_response2,
         headers: { "Content-type" => "text/xml; charset=UTF-8" }
       )
-
     end
 
     context "id is not existing coupon" do
       before do
         LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
+        KohlsTransactions.stub(:find_product_image) { "http://image_url.com" }
         KohlsTransactions.kohls_update_coupons
       end
 

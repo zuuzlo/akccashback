@@ -20,10 +20,7 @@
         = button_link(coupon)
         %h5
           = time_left_display(coupon)
-        -if coupon.categories.size > 0
+        -if coupon.kohls_categories.size > 0
           %h5
-            =render coupon.categories
-        -if coupon.restriction
-          %h6
-            Restrictions:
-            #{coupon.restriction}
+            =render coupon.kohls_categories
+        

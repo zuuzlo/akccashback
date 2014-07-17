@@ -4,37 +4,54 @@ require "recursive_open_struct"
 describe LsTransactions do
   describe "ls_activity" do
     let!(:user1) { Fabricate( :user, verified_email: true , cashback_id: 'user1') }
-    let!(:store1) { Fabricate( :store, id_of_store: '12345' ) }
+    let!(:akccb) { Fabricate( :user, verified_email: true , cashback_id: 'akccb') }
+    let!(:na) { Fabricate( :user, verified_email: true , cashback_id: "N/A") }
+    let!(:store1) { Fabricate( :store, id_of_store: '38605' ) }
     
     before do
       user1.update_columns( cashback_id: 'user1' )
+      akccb.update_columns( cashback_id: 'akccb' )
+      na.update_columns( cashback_id: "N/A" )
+
       responce_csv = File.new("#{Rails.root}/spec/support/test_files/valid_ls.csv")
       LsTransactions.stub(:open).and_return( responce_csv.read )
     end
     
     context "valid records found first time" do  
 
-      it "adds record to Activity" do
+      it "adds records to Activity" do
         LsTransactions.ls_activity
-        expect(Activity.count).to eq(1)
+        expect(Activity.count).to eq(3)
       end
     end
 
     context "valid update columns" do
       before do
         activty1 = Fabricate( :activity, user_id: user1.id, store_id: store1.id )
+        activty2 = Fabricate( :activity, user_id: na.id, store_id: store1.id )
         LsTransactions.ls_activity
       end
 
       it "updates click column" do
-        expect(Activity.find(1).clicks).to eq(4)
+        expect(Activity.find(1).clicks).to eq(12)
       end
       it "updates sales_cents" do
-        expect(Activity.find(1).sales_cents).to eq(2200)
+        expect(Activity.find(1).sales_cents).to eq(1200)
       end
       it "updates commission_cents" do
-        expect(Activity.find(1).commission_cents).to eq(220)
+        expect(Activity.find(1).commission_cents).to eq(120)
       end
+
+      it "updates N/A click column" do
+        expect(Activity.find(2).clicks).to eq(47)
+      end
+      it "updates N/A sales_cents" do
+        expect(Activity.find(2).sales_cents).to eq(29553)
+      end
+      it "updates N/A commission_cents" do
+        expect(Activity.find(2).commission_cents).to eq(1254)
+      end
+
     end
 
     context "invalid update" do
@@ -49,6 +66,7 @@ describe LsTransactions do
       end
     end
   end
+
   describe "last_update_ls" do
     context "Activity exists" do
       let!(:activity1) { Fabricate(:activity, updated_at: '2014-01-01 01:24:05') }

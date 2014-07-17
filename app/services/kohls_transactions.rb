@@ -3,8 +3,8 @@ class KohlsTransactions
   require 'open-uri'
   LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
   LinkshareAPI.token = ENV["LINKSHARE_TOKEN"]
-  def self.kohls_update_coupons
 
+  def self.kohls_update_coupons
     textlinks = LsLinkdirectAPI::TextLinks.new
     params = { mid: 38605, cat: -1, endDate: Time.now.strftime("%m%d%Y") }
     response = textlinks.get(params)
@@ -22,7 +22,7 @@ class KohlsTransactions
         impression_pixel: item.showURL,
         coupon_source_id: 1  
       }
-    
+      
       if item.endDate == nil || item.endDate == '' || item.endDate.downcase == "ongoing"
         coupon_hash[ :end_date ] = Time.parse('2017-1-1') #DateTime.now + 5.years
       else
@@ -119,7 +119,7 @@ class KohlsTransactions
   def self.find_kohls_type(term)
     #1=> 'Dollar Off', 2=> 'Percent Off', 3=> 'Free Shipping', 4=>'Coupon Code', 4=>'General Promotion'
     kohls_type_hash = {
-      1 => ['$'],
+      1 => [' $'],
       #2 => ['%'],
       3 => ['free shipping', 'ships free'],
       4 => ['code']
@@ -130,7 +130,7 @@ class KohlsTransactions
     kohls_type_hash.each do | cat_id, match_words |
       types << cat_id if have_term?(match_words, term)
     end
-    types << 2 if term.include? '%'
+    types << 2 if term.include? '% '
     types << 5 if types.count == 0
     
     types    

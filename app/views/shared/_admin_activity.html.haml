@@ -1,0 +1,12 @@
+- activities.each do | activity |
+  %tr
+    %td
+      = activity.user_name
+    %td
+      = activity.store_name
+    %td
+      = activity.clicks
+    %td
+      = number_to_currency( activity.sales_cents.to_f / 100 )
+    %td
+      = number_to_currency( activity.commission_cents.to_f / 100 )

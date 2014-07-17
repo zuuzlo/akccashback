@@ -6,13 +6,13 @@ class LsTransactions
   LinkshareAPI.token = ENV["LINKSHARE_TOKEN"]
 
   def self.ls_activity
-    url = "https://reportws.linksynergy.com/downloadreport.php?bdate=#{last_update_ls}&edate=#{DateTime.now.strftime("%Y%m%d")}&token=62017e672fbab4c4c474ec35eb740c1939922b48c39186690dbffe4908703185&reportid=11&locale=de"
+    url = "https://reportws.linksynergy.com/downloadreport.php?bdate=#{last_update_ls}&edate=#{DateTime.now.strftime("%Y%m%d")}&token=62017e672fbab4c4c474ec35eb740c1939922b48c39186690dbffe4908703185&reportid=11"
     activities = CSV.new(open(url), :headers => :first_row)
     array_of_rows = activities.read
-    
-    num = array_of_rows.length - 1
 
-    (1..num).each do | i |
+    num = array_of_rows.length - 1
+    
+    (0..num).each do | i |
       if User.exists?(cashback_id: array_of_rows['Member ID'][i]) && Store.exists?(id_of_store: array_of_rows['Advertiser ID'][i] )
         #Member ID,Advertiser ID,Advertiser Name,Clicks,Sales,Commissions
         
@@ -21,8 +21,8 @@ class LsTransactions
           store_id: Store.find_by_id_of_store(array_of_rows['Advertiser ID'][i]).id,
           
           clicks: array_of_rows['Clicks'][i].to_i,
-          sales_cents: array_of_rows['Sales'].split('.').join.to_i,
-          commission_cents: array_of_rows['Commissions'].split('.').join.to_i
+          sales_cents: array_of_rows['Sales'][i].to_f.round(2).to_s.split('.').join.to_i,
+          commission_cents: array_of_rows['Commissions'][i].to_f.round(2).to_s.split('.').join.to_i
         }
 
         row_record = Activity.where( "user_id = ? and store_id = ?", row_hash[:user_id] , row_hash[:store_id] ).first

@@ -1,13 +1,9 @@
 class CategoriesController < ApplicationController
-  include CouponCodesOffers
+  include LoadCoupons
+  
   def show
     @category = Category.friendly.find(params[:id])
-    @coupons = @category.coupons.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
-    
-    @codes_count = coupon_codes(@coupons)
-    @offers_count = coupon_offers(@coupons)
-
-    cals = @coupons.pluck(:id).sample(3)
-    @cal_coupons = Coupon.find(cals)
+    load(@category)
+    render template: 'shared/display_coupons', locals: { title: @category}
   end
 end

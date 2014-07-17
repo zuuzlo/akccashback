@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
   has_many :coupons, -> { order "end_date ASC" }
   has_and_belongs_to_many :users
 
-  has_many :activities
+  #belongs_to :activity
   
   extend FriendlyId
   friendly_id :name, use: :slugged

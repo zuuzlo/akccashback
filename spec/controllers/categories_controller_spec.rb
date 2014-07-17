@@ -39,5 +39,15 @@ describe CategoriesController do
       get :show, id: cat1.id
       expect(assigns(:offers_count)).to eq(1)
     end
+
+    it "sets @cal_coupons" do
+      coupon = Array.new
+      (1..5).each do |i|
+        coupon[i] = Fabricate(:coupon, title: "coupon#{i}", end_date: Time.now + i.hour )
+        coupon[i].categories << cat1
+      end 
+      get :show, id: cat1.id
+      expect(assigns(:cal_coupons).count).to eq(5)
+    end
   end
 end

@@ -20,10 +20,15 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @stores = @user.stores
+  
     @coupons = @user.coupons
     @codes_count = coupon_codes(@coupons)
     @offers_count = coupon_offers(@coupons)
+
+    cals = @coupons.pluck(:id).sample(5)
+    @cal_coupons = Coupon.find(cals)
+
+    @activity = Activity.find_by_user_id(current_user.id)
   end
 
   def register_confirmation
