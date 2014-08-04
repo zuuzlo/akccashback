@@ -271,7 +271,7 @@ DEPENDENCIES
   jquery-rails
   launchy (~> 2.2.0)
   letter_opener
-  linkshare_api (= 0.2.0)
+  linkshare_api (~> 0.2.0)
   ls_linkdirect_api
   nokogiri
   pg

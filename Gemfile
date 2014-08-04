@@ -13,8 +13,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 #gem 'bcrypt-ruby'
 gem 'ebay_enterprise_affiliate_network'
 gem 'find_keywords'
-gem 'ls_linkdirect_api'
 
+gem 'ls_linkdirect_api' #, '~> 0.1.0'
+gem 'linkshare_api', '~> 0.2.0'
 gem 'jbuilder', '~> 1.2'
 gem 'haml-rails', '>= 0.3.4', :group => :development
 
@@ -25,7 +26,7 @@ gem 'nokogiri'
 gem 'faraday'
 gem 'roo'
 gem 'friendly_id', '~> 5.0.0'
-gem 'linkshare_api', '0.2.0'
+
 gem 'figaro'
 gem "sinatra", "~> 1.4.5"
 gem 'pg'
