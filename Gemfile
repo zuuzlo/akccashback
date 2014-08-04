@@ -11,7 +11,7 @@ gem 'turbolinks'
 gem 'fabrication'
 gem 'bcrypt-ruby', '~> 3.0.0'
 #gem 'bcrypt-ruby'
-#gem 'ebay_enterprise_affiliate_network'
+gem 'ebay_enterprise_affiliate_network'
 gem 'find_keywords'
 
 gem 'ls_linkdirect_api' #, '~> 0.1.0'
