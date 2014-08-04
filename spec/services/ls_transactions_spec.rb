@@ -27,8 +27,8 @@ describe LsTransactions do
 
     context "valid update columns" do
       before do
-        activty1 = Fabricate( :activity, user_id: user1.id, store_id: store1.id )
-        activty2 = Fabricate( :activity, user_id: na.id, store_id: store1.id )
+        activty1 = Fabricate( :activity, user_id: user1.id, store_id: store1.id,updated_at: Time.now - 2.days )
+        activty2 = Fabricate( :activity, user_id: na.id, store_id: store1.id, updated_at: Time.now - 2.days )
         LsTransactions.ls_activity
       end
 
@@ -51,7 +51,21 @@ describe LsTransactions do
       it "updates N/A commission_cents" do
         expect(Activity.find(2).commission_cents).to eq(1254)
       end
+    end
 
+    context "doesn't update on same day" do
+      before do
+        activty1 = Fabricate( :activity, user_id: user1.id, clicks: 3, store_id: store1.id, updated_at: Time.now - 2.hours )
+        activty2 = Fabricate( :activity, user_id: na.id, store_id: store1.id, sales_cents: 100, updated_at: Time.now - 2.hours )
+        LsTransactions.ls_activity
+      end
+
+      it "doesn't update clicks" do
+        expect(Activity.find(1).clicks).to eq(3)
+      end
+      it "doesn't update sales" do
+        expect(Activity.find(2).sales_cents).to eq(100)
+      end
     end
 
     context "invalid update" do

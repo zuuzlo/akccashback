@@ -11,6 +11,7 @@ describe User do
   it { should_not allow_value('12345').for(:password) }
   it { should allow_value('123456').for (:password) }  
   it { should validate_uniqueness_of(:email) }
+  it { should have_many(:transactions) }
 
   it_behaves_like "tokenable" do
     let(:object) { Fabricate(:user) }

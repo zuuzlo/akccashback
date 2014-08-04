@@ -14,4 +14,10 @@ class AppMailer < ActionMailer::Base
     @invitation = invitation
     mail to: @invitation.friends_email, from: 'kirk@example.com', subject: "You have been invited to join All Kohls Coupons Cash Back"
   end
+
+  def notify_transaction(user, transaction)
+    @user = user
+    @transaction = transaction
+    mail to: @user.email, from: 'kirk@example.com', subject: "We have recieved your withdrawal request."
+  end
 end

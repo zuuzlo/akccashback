@@ -13,4 +13,8 @@ class Activity < ActiveRecord::Base
   def store_name
     Store.find(self.store_id).name
   end
+
+  def user_commission_cents
+    commission_cents / 2
+  end
 end

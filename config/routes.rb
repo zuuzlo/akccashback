@@ -1,5 +1,8 @@
 Akccashback::Application.routes.draw do
   
+  get "transactions/new"
+  get "transactions/create"
+  #get "activities/index"
   get "/sign_in", to: "sessions#new"
   post "/sign_in", to: "sessions#create"
   get "/sign_out", to: "sessions#destroy"
@@ -8,7 +11,11 @@ Akccashback::Application.routes.draw do
 
   get 'ui(/:action)', controller: 'ui'
   
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create, :show] do
+    resources :transactions, only: [:create, :new]
+    resources :activities, only: [:index]
+  end
+
   get 'register/:token', to: "users#register_confirmation", as: 'register_with_token'
   
   resources :stores, except: [:destroy] do
@@ -45,6 +52,8 @@ Akccashback::Application.routes.draw do
     resources :activities, only: [:index]
     get 'get_activities', to: 'activities#get_activities'
   end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

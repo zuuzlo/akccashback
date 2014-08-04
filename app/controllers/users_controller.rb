@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       AppMailer.notify_on_registor(@user).deliver
-      flash[:success] = "Welcome to Zuuzlo!"
+      flash[:success] = "Welcome to All Kohls Coupons Cash Back!"
       redirect_to sign_in_path
     else
       flash[:danger] = "Please correct the below errors!"
@@ -27,8 +27,6 @@ class UsersController < ApplicationController
 
     cals = @coupons.pluck(:id).sample(5)
     @cal_coupons = Coupon.find(cals)
-
-    @activity = Activity.find_by_user_id(current_user.id)
   end
 
   def register_confirmation

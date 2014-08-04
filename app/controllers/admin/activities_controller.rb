@@ -7,12 +7,11 @@ class Admin::ActivitiesController < AdminController
   end
 
   def get_activities
-    before_count = Activity.count
+  
     LsTransactions.ls_activity
-    after_count = Activity.count
-
-    if after_count > before_count
-      flash[:success] = "New Activity"
+    
+    if Activity.where("updated_at > :now_less_five", { now_less_five: Time.now - 2.minutes }).first
+      flash[:success] = "There is New Activity"
     else
       flash[:danger] = "No new Activity."
     end

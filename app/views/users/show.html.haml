@@ -4,14 +4,11 @@
     Homepage for #{@user.full_name}
   %ul.nav.nav-tabs{'role'=>"tablist"}
     %li.active
-      %a(href="#favorite" role="tab" data-toggle="tab")
-        Favorite
+      = link_to "Favorite", user_path(current_user)
     %li
-      %a(href="#activity" role="tab" data-toggle="tab")
-        Activity
+      = link_to "Activity", user_activities_path(current_user)
     %li
-      %a(href="#balance" role="tab" data-toggle="tab")
-        Accout Balance
+      = link_to "Account Balance", new_user_transaction_path(current_user)
     %li
       %a(href="#profile" role="tab" data-toggle="tab")
         Profile
@@ -29,33 +26,3 @@
       - else
         %h3
           Add to Favorite Coupons to see here!
-    #activity.tab-pane
-      %h1
-        Activity Summary
-      %table.table
-        %tr
-          %th Clicks
-          %th Kohls Purchases
-          %th Cash Back Earned
-        %tr
-          %td
-            = @activity.clicks
-          %td
-            = number_to_currency( @activity.sales_cents.to_f / 100 )
-          %td
-            = number_to_currency( @activity.commission_cents.to_f / 200 )
-    #balance.tab-pane
-      %h1
-        Activity Summary
-      %table.table
-        %tr
-          %th Date
-          %th Description
-          %th Amount
-        %tr
-          %td
-            #{@activity.updated_at.strftime("%m-%d-%Y")}
-          %td
-            Cash back earned
-          %td
-            = number_to_currency( @activity.commission_cents.to_f / 200 )

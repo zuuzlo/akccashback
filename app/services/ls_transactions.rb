@@ -6,37 +6,39 @@ class LsTransactions
   LinkshareAPI.token = ENV["LINKSHARE_TOKEN"]
 
   def self.ls_activity
-    url = "https://reportws.linksynergy.com/downloadreport.php?bdate=#{last_update_ls}&edate=#{DateTime.now.strftime("%Y%m%d")}&token=62017e672fbab4c4c474ec35eb740c1939922b48c39186690dbffe4908703185&reportid=11"
-    activities = CSV.new(open(url), :headers => :first_row)
-    array_of_rows = activities.read
+    if Date.parse(self.last_update_ls).past?
+      url = "https://reportws.linksynergy.com/downloadreport.php?bdate=#{last_update_ls}&edate=#{DateTime.now.strftime("%Y%m%d")}&token=62017e672fbab4c4c474ec35eb740c1939922b48c39186690dbffe4908703185&reportid=11"
+      activities = CSV.new(open(url), :headers => :first_row)
+      array_of_rows = activities.read
 
-    num = array_of_rows.length - 1
-    
-    (0..num).each do | i |
-      if User.exists?(cashback_id: array_of_rows['Member ID'][i]) && Store.exists?(id_of_store: array_of_rows['Advertiser ID'][i] )
-        #Member ID,Advertiser ID,Advertiser Name,Clicks,Sales,Commissions
-        
-        row_hash = {
-          user_id: User.find_by_cashback_id(array_of_rows['Member ID'][i]).id,
-          store_id: Store.find_by_id_of_store(array_of_rows['Advertiser ID'][i]).id,
-          
-          clicks: array_of_rows['Clicks'][i].to_i,
-          sales_cents: array_of_rows['Sales'][i].to_f.round(2).to_s.split('.').join.to_i,
-          commission_cents: array_of_rows['Commissions'][i].to_f.round(2).to_s.split('.').join.to_i
-        }
-
-        row_record = Activity.where( "user_id = ? and store_id = ?", row_hash[:user_id] , row_hash[:store_id] ).first
+      num = array_of_rows.length - 1
       
-        if row_record
-          #update record
-          row_hash[:clicks] += row_record.clicks
-          row_hash[:sales_cents] += row_record.sales_cents
-          row_hash[:commission_cents] += row_record.commission_cents
-          row_record.update_attributes(clicks: row_hash[:clicks], sales_cents: row_hash[:sales_cents], commission_cents: row_hash[:commission_cents])
-        else
-          #create new record
-          new_row_record = Activity.new(row_hash)
-          new_row_record.save
+      (0..num).each do | i |
+        if User.exists?(cashback_id: array_of_rows['Member ID'][i]) && Store.exists?(id_of_store: array_of_rows['Advertiser ID'][i] )
+          #Member ID,Advertiser ID,Advertiser Name,Clicks,Sales,Commissions
+          
+          row_hash = {
+            user_id: User.find_by_cashback_id(array_of_rows['Member ID'][i]).id,
+            store_id: Store.find_by_id_of_store(array_of_rows['Advertiser ID'][i]).id,
+            
+            clicks: array_of_rows['Clicks'][i].to_i,
+            sales_cents: array_of_rows['Sales'][i].to_f.round(2).to_s.split('.').join.to_i,
+            commission_cents: array_of_rows['Commissions'][i].to_f.round(2).to_s.split('.').join.to_i
+          }
+
+          row_record = Activity.where( "user_id = ? and store_id = ?", row_hash[:user_id] , row_hash[:store_id] ).first
+        
+          if row_record
+            #update record
+            row_hash[:clicks] += row_record.clicks
+            row_hash[:sales_cents] += row_record.sales_cents
+            row_hash[:commission_cents] += row_record.commission_cents
+            row_record.update_attributes(clicks: row_hash[:clicks], sales_cents: row_hash[:sales_cents], commission_cents: row_hash[:commission_cents])
+          else
+            #create new record
+            new_row_record = Activity.new(row_hash)
+            new_row_record.save
+          end
         end
       end
     end

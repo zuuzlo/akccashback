@@ -24,6 +24,7 @@ describe Admin::ActivitiesController do
       
       before do
         user1.update_columns( cashback_id: 'user1' )
+        activty1 = Fabricate( :activity, user_id: user1.id, clicks: 3, store_id: store1.id )
         set_admin_user
         responce_csv = File.new("#{Rails.root}/spec/support/test_files/valid_ls.csv")
         LsTransactions.stub(:ls_activity).and_return( responce_csv.read )
