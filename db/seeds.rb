@@ -68,7 +68,7 @@ konly_hash.each do | id, only_name |
   KohlsOnly.create!( name: only_name, kc_id: id )
 end
 
-ktype_hash = { 1 => 'Dollar Off', 2 => 'Percent Off', 3 => 'Free Shipping', 4 => 'Coupon Code', 5 => 'General Promotion', 6 => 'Coupon Code' }
+ktype_hash = { 1 => 'Dollar Off', 2 => 'Percent Off', 3 => 'Free Shipping', 4 => 'Coupon Code', 5 => 'General Promotion' }
 
 ktype_hash.each do | id, type_name |
   KohlsType.create!( name: type_name, kc_id: id )

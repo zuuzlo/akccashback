@@ -1,26 +1,20 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.0'
 ruby '2.0.0'
-gem 'sass-rails', '~> 4.0.0'
+
+gem 'rails', '4.0.0'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'bootstrap_form', "~> 2.0.1"
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'fabrication'
 gem 'bcrypt-ruby', '~> 3.0.0'
-#gem 'bcrypt-ruby'
 gem 'ebay_enterprise_affiliate_network'
 gem 'find_keywords'
-
 gem 'ls_linkdirect_api' #, '~> 0.1.0'
 gem 'linkshare_api', '~> 0.2.0'
 gem 'jbuilder', '~> 1.2'
 gem 'haml-rails', '>= 0.3.4', :group => :development
-
 gem 'haml'
-
 gem 'holder_rails'
 gem 'nokogiri'
 gem 'faraday'
@@ -32,13 +26,19 @@ gem "sinatra", "~> 1.4.5"
 gem 'pg'
 gem 'bootstrap-datepicker-rails'
 
+gem 'sidekiq'
+gem 'redis'
+gem 'unicorn'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
 group :assets do
-
+  gem 'sass-rails', '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'uglifier', '>= 1.3.0'
 end
 
 group :development do

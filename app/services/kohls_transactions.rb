@@ -53,11 +53,11 @@ class KohlsTransactions
           new_coupon.kohls_onlies << KohlsOnly.find_by_kc_id(only_kohls) if only_kohls
         end
 
-        find_kohls_type(name_check).each do | type_kohls |
+        find_kohls_type(name_check_raw).each do | type_kohls |
           new_coupon.kohls_types << KohlsType.find_by_kc_id(type_kohls) if type_kohls
         end
       
-        new_coupon.kohls_types << KohlsType.find_by_kc_id(6) if new_coupon.code
+        #new_coupon.kohls_types << KohlsType.find_by_kc_id(6) if new_coupon.code
         
         new_coupon.update(image: find_product_image(name_check))
       end
@@ -117,23 +117,26 @@ class KohlsTransactions
   end
 
   def self.find_kohls_type(term)
-    #1=> 'Dollar Off', 2=> 'Percent Off', 3=> 'Free Shipping', 4=>'Coupon Code', 4=>'General Promotion'
+    #1=> 'Dollar Off', 2=> 'Percent Off', 3=> 'Free Shipping', 4=>'Coupon Code', 5=>'General Promotion'
+    term.downcase!
     kohls_type_hash = {
-      1 => [' $'],
-      #2 => ['%'],
-      3 => ['free shipping', 'ships free'],
-      4 => ['code']
+      1 => [/\$/],
+      2 => [/\%/],
+      3 => [/free shipping/, /ships free/],
+      4 => [/code/]
     }
 
     types = []
     
     kohls_type_hash.each do | cat_id, match_words |
-      types << cat_id if have_term?(match_words, term)
+      match_words.each do | match_word |
+        types << cat_id if term =~ match_word
+      end
     end
-    types << 2 if term.include? '% '
+    #types << 2 if term.include? '% '
     types << 5 if types.count == 0
     
-    types    
+    types.uniq   
   end
 
   def self.find_coupon_code(term)

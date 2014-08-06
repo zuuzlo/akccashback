@@ -1,4 +1,6 @@
 Akccashback::Application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web, :at => '/sidekiq'
   
   get "transactions/new"
   get "transactions/create"
