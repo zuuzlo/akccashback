@@ -8,9 +8,9 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'fabrication'
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'ebay_enterprise_affiliate_network'
+gem 'ebay_enterprise_affiliate_network', '~> 1.0.2' 
 gem 'find_keywords'
-gem 'ls_linkdirect_api' #, '~> 0.1.0'
+gem 'ls_linkdirect_api', '~> 0.1.1'
 gem 'linkshare_api', '~> 0.2.0'
 gem 'jbuilder', '~> 1.2'
 gem 'haml-rails', '>= 0.3.4', :group => :development
@@ -68,5 +68,5 @@ group :test do
   gem "vcr"
   gem "webmock", "~> 1.11.0"
  # gem "capybara-webkit"
-  gem "recursive-open-struct", "~> 0.4.3"
+  gem "recursive-open-struct", "~> 0.5.0"
 end
