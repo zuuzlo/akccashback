@@ -15,15 +15,18 @@
   .tab-content
     %h4
       Activity Summary
-    %table.table
-      %tr
-        %th Clicks
-        %th Kohls Purchases
-        %th Cash Back Earned
-      %tr
-        %td
-          = @activity.clicks
-        %td
-          = number_to_currency( @activity.sales_cents.to_f / 100 )
-        %td
-          = number_to_currency( @activity.user_commission_cents.to_f / 100 )
+    - if @activity
+      %table.table
+        %tr
+          %th Clicks
+          %th Kohls Purchases
+          %th Cash Back Earned
+        %tr
+          %td
+            = @activity.clicks
+          %td
+            = number_to_currency( @activity.sales_cents.to_f / 100 )
+          %td
+            = number_to_currency( @activity.user_commission_cents.to_f / 100 )
+    - else 
+      Sorry you don't have any activity!
