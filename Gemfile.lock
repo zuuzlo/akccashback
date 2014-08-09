@@ -44,6 +44,9 @@ GEM
     capybara-email (2.0.3)
       capybara (~> 2.0.0)
       mail
+    capybara-webkit (1.0.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.5.3)
@@ -185,7 +188,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-ole (1.2.11.7)
-    rubyzip (1.1.6)
+    rubyzip (0.9.9)
     safe_yaml (1.0.3)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -196,10 +199,10 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
-    selenium-webdriver (2.34.0)
+    selenium-webdriver (2.35.1)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
-      rubyzip
+      rubyzip (< 1.0.0)
       websocket (~> 1.0.4)
     shoulda-matchers (2.6.2)
       activesupport (>= 3.0.0)
@@ -260,6 +263,7 @@ DEPENDENCIES
   bootstrap_form (~> 2.0.1)
   capybara (~> 2.0.2)
   capybara-email
+  capybara-webkit
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
   ebay_enterprise_affiliate_network (~> 1.0.2)
@@ -290,7 +294,7 @@ DEPENDENCIES
   rspec-rails (~> 2.14.1)
   sass-rails (~> 4.0.0)
   sdoc
-  selenium-webdriver (~> 2.34.0)
+  selenium-webdriver (~> 2.35.1)
   shoulda-matchers
   sidekiq
   sinatra (~> 1.4.5)

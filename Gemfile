@@ -64,9 +64,9 @@ group :test do
   gem "database_cleaner", "~> 1.2.0"
   gem "launchy", "~> 2.2.0"
   gem 'capybara-email'
-  gem "selenium-webdriver", "~> 2.34.0"
+  gem "selenium-webdriver", "~> 2.35.1"
   gem "vcr"
   gem "webmock", "~> 1.11.0"
- # gem "capybara-webkit"
+  gem "capybara-webkit"
   gem "recursive-open-struct", "~> 0.5.0"
 end

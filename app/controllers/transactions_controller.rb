@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_filter :require_user, only:[:new, :create]
+  
   def new
     @user = current_user
     @activity = @user.activities
@@ -14,13 +15,13 @@ class TransactionsController < ApplicationController
     @transaction = @user.transactions.build(transaction_params.merge!(user: current_user))
 
     if @transaction.save
-      AppMailer.notify_transaction(@user, @transaction).deliver
+      AppMailer.delay.notify_transaction(@user, @transaction)
       flash[:success] = "You a successfuly made a withdrawl, please wait 24 hours to see amount in your paypal account."
       redirect_to  new_user_transaction_path(@user)
     else
       @activity = @user.activities.reload
       @transactions = @user.transactions.reload
-      render 'new'
+      render :new
     end
    
   end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      AppMailer.notify_on_registor(@user).deliver
+      AppMailer.delay.notify_on_registor(@user)
       flash[:success] = "Welcome to All Kohls Coupons Cash Back!"
       redirect_to sign_in_path
     else

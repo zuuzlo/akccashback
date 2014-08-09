@@ -85,20 +85,33 @@ describe TransactionsController do
     end
   end
   describe "GET 'new'" do
+    let!(:user1) { Fabricate(:user) }
+    let!(:store1) { Fabricate(:store) }
+    let!(:activity1) { Fabricate(:activity, user_id: user1.id, store_id: store1.id) }
+    let!(:transaction1) { Fabricate(:transaction, user_id: user1.id) }
+    before do
+      set_current_user(user1)
+      get :new
+    end
 
     it "returns http success" do
-      get 'new'
       response.should be_success
     end
 
     it "sets @user to User current_user" do
-      get :new
       expect(assigns(:user)).to be_instance_of(User)
     end
 
     it "sets @transaction to new Transaction" do
-      get :new
       expect(assigns(:transaction)).to be_instance_of(Transaction)
+    end
+
+    it "sets @activity to activity1" do
+      expect(assigns(:activity)).to eq([activity1])
+    end
+
+    it "sets @transactions to transaction1" do
+      expect(assigns(:transactions)).to eq([transaction1])
     end
   end
 end
