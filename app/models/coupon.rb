@@ -50,7 +50,7 @@ class Coupon < ActiveRecord::Base
 
     links.each do |link|
     
-    link_hash = {
+      link_hash = {
       id_of_coupon: link.at_xpath("id").text,
       title:  link.at_xpath("title").text,
       description: link.at_xpath("offerdescription").text,

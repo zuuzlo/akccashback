@@ -6,7 +6,7 @@ class CouponsController < ApplicationController
     @codes_count = coupon_codes(@coupons)
     @offers_count = coupon_offers(@coupons)
 
-    cals = @coupons.pluck(:id).sample(3)
+    cals = @coupons.pluck(:id).sample(5)
     @cal_coupons = Coupon.find(cals)
   end
 

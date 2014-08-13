@@ -17,11 +17,11 @@
     
     = yield :head
   %body
-    %header
-      = render 'shared/header'
-    %section.content.clearfix
-      =render :partial => 'shared/messages'
-      #flash_hook.container
+    .container
+      %header
+        = render 'shared/header'
+      = render :partial => 'shared/messages'
+      #flash_hook
       = yield
-    %footer
-      =render 'shared/footer'
+      %footer
+        =render 'shared/footer'

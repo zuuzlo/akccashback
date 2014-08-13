@@ -1,32 +1,32 @@
 -provide(:title, "All Kohls Coupons Home Page | #{@user.full_name}")
-.container
+.page-header
   %h1 
     Homepage for #{@user.full_name}
-  %ul.nav.nav-tabs{'role'=>"tablist"}
-    %li
-      = link_to "Favorite", user_path(current_user)
-    %li.active
-      = link_to "Activity", user_activities_path(current_user)
-    %li
-      = link_to "Account Balance", new_user_transaction_path(current_user)
-    %li
-      %a(href="#profile" role="tab" data-toggle="tab")
-        Profile
-  .tab-content
-    %h4
-      Activity Summary
-    - if @activity
-      %table.table
-        %tr
-          %th Clicks
-          %th Kohls Purchases
-          %th Cash Back Earned
-        %tr
-          %td
-            = @activity.clicks
-          %td
-            = number_to_currency( @activity.sales_cents.to_f / 100 )
-          %td
-            = number_to_currency( @activity.user_commission_cents.to_f / 100 )
-    - else 
-      Sorry you don't have any activity!
+%ul.nav.nav-tabs{'role'=>"tablist"}
+  %li
+    = link_to "Favorite", user_path(current_user)
+  %li.active
+    = link_to "Activity", user_activities_path(current_user)
+  %li
+    = link_to "Account Balance", new_user_transaction_path(current_user)
+  %li
+    %a(href="#profile" role="tab" data-toggle="tab")
+      Profile
+.tab-content
+  %h4
+    Activity Summary
+  - if @activity
+    %table.table
+      %tr
+        %th Clicks
+        %th Kohls Purchases
+        %th Cash Back Earned
+      %tr
+        %td
+          = @activity.clicks
+        %td
+          = number_to_currency( @activity.sales_cents.to_f / 100 )
+        %td
+          = number_to_currency( @activity.user_commission_cents.to_f / 100 )
+  - else 
+    Sorry you don't have any activity!

@@ -1,61 +1,61 @@
 -provide(:title, "All Kohls Coupons Home Page | #{@user.full_name}")
-.container
+.page-header
   %h1 
     Homepage for #{@user.full_name}
-  %ul.nav.nav-tabs{'role'=>"tablist"}
-    %li
-      = link_to "Favorite", user_path(current_user)
-    %li
-      = link_to "Activity", user_activities_path(current_user)
-    %li.active
-      = link_to "Account Balance", new_user_transaction_path(current_user)
-    %li
-      %a(href="#profile" role="tab" data-toggle="tab")
-        Profile
-  .tab-content
-    %h4
-      Account Balance
-    - if @activity.count > 0
-      %table.table
-        %tr
-          %th Date
-          %th Description
-          %th Amount
-        %tr
-          %td
-            #{@activity.first.updated_at.strftime("%m-%d-%Y")}
-          %td
-            Cash back earned
-          %td
-            = number_to_currency( @activity.first.user_commission_cents.to_f / 100 )
-        - if @transactions
-          - @transactions.each  do | transaction |
-            %tr
-              %td
-                #{transaction.updated_at.strftime("%m-%d-%Y")}
-              %td
-                #{transaction.description}
-              %td
-                \-
-                = number_to_currency( transaction.amount_cents.to_f / 100 )
-        %tr
-          %td
-          %td
-            Total Available for Withdrawal
-          %td
-            = number_to_currency( available_balance(@user).to_f / 100 )
-    - else
-      Sorry you don't have any activity!
-      - if available_balance(@user) > 0
-        .s12.l12
-          .s6.l6.col-md-offset-3
-            .well.well-lg
-              -if @transaction.errors.any?
-                .alert.alert-danger
-                  %a.close(data-dismiss='alert') &#215;
-                  -@transaction.errors.messages.each do |atb, msg|
-                    Withdrawal #{msg.first}!
-              = bootstrap_form_for([@user, Transaction.new], layout: :horizontal, help: :block) do |f|
-                = f.hidden_field :description, value: "Withdrawal"
-                = f.text_field :amount_cents, prepend: "$", label: "Amount to Withdraw"
-                = f.submit "Withdraw", class: "btn btn-success"
+%ul.nav.nav-tabs{'role'=>"tablist"}
+  %li
+    = link_to "Favorite", user_path(current_user)
+  %li
+    = link_to "Activity", user_activities_path(current_user)
+  %li.active
+    = link_to "Account Balance", new_user_transaction_path(current_user)
+  %li
+    %a(href="#profile" role="tab" data-toggle="tab")
+      Profile
+.tab-content
+  %h4
+    Account Balance
+  - if @activity.count > 0
+    %table.table
+      %tr
+        %th Date
+        %th Description
+        %th Amount
+      %tr
+        %td
+          #{@activity.first.updated_at.strftime("%m-%d-%Y")}
+        %td
+          Cash back earned
+        %td
+          = number_to_currency( @activity.first.user_commission_cents.to_f / 100 )
+      - if @transactions
+        - @transactions.each  do | transaction |
+          %tr
+            %td
+              #{transaction.updated_at.strftime("%m-%d-%Y")}
+            %td
+              #{transaction.description}
+            %td
+              \-
+              = number_to_currency( transaction.amount_cents.to_f / 100 )
+      %tr
+        %td
+        %td
+          Total Available for Withdrawal
+        %td
+          = number_to_currency( available_balance(@user).to_f / 100 )
+  - else
+    Sorry you don't have any activity!
+    - if available_balance(@user) > 0
+      .s12.l12
+        .s6.l6.col-md-offset-3
+          .well.well-lg
+            -if @transaction.errors.any?
+              .alert.alert-danger
+                %a.close(data-dismiss='alert') &#215;
+                -@transaction.errors.messages.each do |atb, msg|
+                  Withdrawal #{msg.first}!
+            = bootstrap_form_for([@user, Transaction.new], layout: :horizontal, help: :block) do |f|
+              = f.hidden_field :description, value: "Withdrawal"
+              = f.text_field :amount_cents, prepend: "$", label: "Amount to Withdraw"
+              = f.submit "Withdraw", class: "btn btn-success"

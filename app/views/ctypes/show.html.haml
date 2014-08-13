@@ -1,11 +1,9 @@
 -provide(:title, "Welcome to All Kohls Coupons | #{@ctype.name}")
-.container
-  .s5.l5
-    %h1 #{@ctype.name}
-    = render 'shared/coupon_tabs'
-  .s7.l7  
-    =render partial: 'shared/carousel', locals: { coupons: @cal_coupons } 
-  .row
-    .l12.s12
-      = render 'shared/coupon_tab_content'
+.s5.l5
+  %h1 #{@ctype.name}
+  = render 'shared/coupon_tabs'
+.s7.l7  
+  =render partial: 'shared/carousel', locals: { coupons: @cal_coupons } 
+.l12.s12
+  = render 'shared/coupon_tab_content'
   
