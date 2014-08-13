@@ -55,7 +55,6 @@ Akccashback::Application.routes.draw do
     get 'get_activities', to: 'activities#get_activities'
   end
 
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
