@@ -3,4 +3,5 @@ Fabricator(:user) do
   password 'password'
   password_confirmation 'password'
   full_name { Faker::Name.name }
+  terms { true }
 end

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   validates :full_name, presence: true
   validates :password, presence: true, on: :create, length: {minimum: 6}
 
+  validates_inclusion_of :terms, in: [true]
+
   extend FriendlyId
   friendly_id :email, use: :slugged
 

@@ -9,4 +9,22 @@
         = f.password_field :password, help: 'Must be at least 6 characters long'
         = f.password_field :password_confirmation, help: 'Must match password'
         = f.text_field :full_name
-        = f.submit "Register", class: "btn btn-success"
+        = f.form_group :terms, label: { text: "Review #{ link_to "Terms of Service","#tosModal", 'data-toggle' => "modal" }".html_safe } do
+          = f.check_box :terms, label: 'I agree with the Terms of Service.'
+        %p.text-center
+          = f.submit 'Register', class: 'btn btn-lg btn-success'     
+#tosModal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'tosModal', 'aria-hidden' => 'true' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close
+        %h4#tosModal.modal-title
+          Terms of Service
+      .modal-body.tos
+        = render "shared/tos"
+      .modal-footer
+        %button.close{"data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close

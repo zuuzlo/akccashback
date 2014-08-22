@@ -13,6 +13,9 @@ describe User do
   it { should validate_uniqueness_of(:email) }
   it { should have_many(:transactions) }
 
+  it { should allow_value(true).for(:terms) }
+  it { should_not allow_value(nil).for(:terms) }
+
   it_behaves_like "tokenable" do
     let(:object) { Fabricate(:user) }
   end
