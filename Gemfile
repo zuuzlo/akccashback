@@ -3,7 +3,7 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 gem 'bootstrap-sass', '~> 3.1.0'
-gem 'bootstrap_form', "~> 2.0.1"
+gem 'bootstrap_form', '~> 2.1.1'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'fabrication'

@@ -21,7 +21,6 @@ class Admin::CouponsController < AdminController
   end
 
   def update
-    #require 'pry'; binding.pry
     @coupon = Coupon.find(params[:id])
     if params[:term] == ""
       

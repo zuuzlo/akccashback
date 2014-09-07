@@ -1,0 +1,11 @@
+.page-header
+  %h1 Reset Your Password
+.row
+  .s6.l6.col-md-offset-3
+    .well.well-lg
+      = bootstrap_form_tag url: password_resets_path do |f|
+        = f.password_field :password, label: "New Password"  
+        = f.password_field :password_confirmation, label: "Confirm Password"
+        = hidden_field_tag :token, @token
+        %p.text-center
+          = f.submit 'Reset Password', class: 'btn btn-lg btn-success'

@@ -13,6 +13,8 @@ describe KohlsTransactions do
     let!(:ktype1) { Fabricate(:kohls_type, kc_id: 5) }
     let!(:ktype2) { Fabricate(:kohls_type, kc_id: 20) }
     let!(:ktype3) { Fabricate(:kohls_type, kc_id: 6) }
+    let!(:ktype4) { Fabricate(:kohls_type, kc_id: 4) }
+    let!(:ktype5) { Fabricate(:kohls_type, kc_id: 2) }
     let!(:konly1) { Fabricate(:kohls_only, kc_id: 1) }
     let!(:konly2) { Fabricate(:kohls_only, kc_id: 2) }
     let!(:kcat1) { Fabricate(:kohls_category, kc_id: 1) }
@@ -106,7 +108,7 @@ describe KohlsTransactions do
       end
 
       it "adds coupon to kohls_types" do
-        expect(Coupon.last.kohls_types).to eq([ktype1, ktype3])
+        expect(Coupon.last.kohls_types).to eq([ktype4, ktype5])
       end
 
       it "adds coupon to kohls_only" do

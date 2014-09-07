@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe CategoriesController do
+describe KohlsOnliesController do
 
   describe "GET show" do
-    let(:cat1) { Fabricate(:category) }
-    before { get :show, id: cat1.id }
+    let(:only1) { Fabricate(:kohls_only) }
+    before { get :show, id: only1.id }
 
-    it "sets @category" do
-      expect(assigns(:category)).to eq(cat1)
+    it "sets @only" do
+      expect(assigns(:only)).to eq(only1)
     end
 
     it "renders template display_coupons" do

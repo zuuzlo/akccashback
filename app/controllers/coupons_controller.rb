@@ -1,20 +1,17 @@
 class CouponsController < ApplicationController
+  include LoadCoupons
   include CouponCodesOffers
-  
+
   def index
     @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
-    @codes_count = coupon_codes(@coupons)
-    @offers_count = coupon_offers(@coupons)
-
-    cals = @coupons.pluck(:id).sample(5)
-    @cal_coupons = Coupon.find(cals)
+    load_coupon_offer_code(@coupons)
+    load_cal_picts(@coupons)
   end
 
   def search
     @coupons = Coupon.search_by_title(params[:search_term])
     @term = params[:search_term]
-    @codes_count = coupon_codes(@coupons)
-    @offers_count = coupon_offers(@coupons)
+    load_coupon_offer_code(@coupons)
   end
 
   def toggle_favorite

@@ -7,23 +7,19 @@ describe CouponsController do
     let!(:coupon3) { coupon3 = Fabricate(:coupon, code: nil, description: 'fast dog', end_date: Time.now + 1.hour ) }
     before { get :search, search_term: 'car' }
 
-    it "set @coupons where coupons description has search term" do
-      
+    it "set @coupons where coupons description has search term" do   
       expect(assigns(:coupons)).to eq([coupon1, coupon2])
     end
 
-    it "set @term to search term" do
-      
+    it "set @term to search term" do     
       expect(assigns(:term)).to eq('car')
     end
 
-    it "set @codes_count" do
-       
+    it "set @codes_count" do      
       expect(assigns(:codes_count)).to eq(1)
     end
 
-    it "set @offers_count" do
-      
+    it "set @offers_count" do   
       expect(assigns(:offers_count)).to eq(1)
     end
   end

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include CouponCodesOffers
-  before_filter :require_user, only:[:show]
+  before_filter :require_user, only:[:show, :edit, :update]
   
   def new
     @user = User.new
@@ -38,14 +38,39 @@ class UsersController < ApplicationController
       redirect_to sign_in_path
     else
       flash[:danger] = "Your token has expired!"
-      redirect_to sign_in_path #remove this when request for new token is complete
-      #redirect_to expired_token_path
+      redirect_to expired_token_path
     end
+  end
+
+  def edit
+    @user = current_user
+    if params[:id] == current_user.friendly_id
+      render :edit
+    else
+      flash[:danger] = "You can't edit someone elses profile!"
+      redirect_to user_path(current_user)
+    end
+  end
+
+  def update
+    @user = current_user
+    #require 'pry'; binding.pry
+    if params[:id] == current_user.friendly_id
+      if @user.update(user_params)
+        flash[:success] = "Profile updated."
+      end
+      render :edit
+    else
+      flash[:danger] = "You can't edit someone elses profile!"
+      redirect_to edit_user_path(current_user)
+    end
+
+    
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :full_name, :terms)
+    params.require(:user).permit(:email, :password, :password_confirmation, :full_name, :terms, :user_name, :paypal_email)
   end
 end

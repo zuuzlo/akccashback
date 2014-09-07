@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814112931) do
+ActiveRecord::Schema.define(version: 20140830220803) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20140814112931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "terms"
+    t.string   "user_name"
   end
 
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree

@@ -36,7 +36,6 @@ class KohlsTransactions
       if new_coupon.save
         
         PjTransactions.pj_find_category(name_check).each do | cat |
-          #require 'pry'; binding.pry
           new_coupon.categories << Category.find_by_ls_id(cat) if cat
         end
 

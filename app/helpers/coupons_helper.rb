@@ -41,7 +41,7 @@ module CouponsHelper
     else
       capture_haml do
         haml_tag 'span.label.label-success' do
-          haml_tag 'span.glyphicon.glyphicon-time'         
+          haml_tag 'span.glyphicon.glyphicon-time'
           haml_concat "Expires in #{coupon.time_left}"
         end
       end
@@ -85,9 +85,9 @@ module CouponsHelper
   def product_image(coupon)
     
     if coupon.image
-      image_tag("#{coupon.image}", size: "125x125", class: "img-circle")
+      image_tag("#{coupon.image}", size: "125x125", class: "img-circle", alt: "#{coupon.title}")
     else
-      image_tag( "#{coupon.store_image}",size: "125x125")
+      image_tag( "#{coupon.store_image}",size: "125x125", alt: "#{coupon.title}" )
     end
   end
 end

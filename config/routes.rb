@@ -13,13 +13,19 @@ Akccashback::Application.routes.draw do
 
   get 'ui(/:action)', controller: 'ui'
   
-  resources :users, only: [:new, :create, :show] do
+  resources :users, only: [:new, :create, :show, :edit, :update] do
     resources :transactions, only: [:create, :new]
     resources :activities, only: [:index]
   end
 
   get 'register/:token', to: "users#register_confirmation", as: 'register_with_token'
   
+  resources :forgot_passwords, only: [:create]
+  get 'forgot_password', to: 'forgot_passwords#new'
+  get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
+  resources :password_resets, only: [:show, :create]
+  get 'expired_token', to: 'password_resets#expired_token'
+
   resources :stores, except: [:destroy] do
     member do 
       post 'save_store'

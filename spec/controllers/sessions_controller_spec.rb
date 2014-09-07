@@ -20,7 +20,7 @@ describe SessionsController do
     context "with valid credials" do
       let(:kirk) { kirk = Fabricate(:user, verified_email: TRUE) }
       before do
-        post :create, { email: kirk.email, password: kirk.password }
+        post :create, { user_name: kirk.user_name, password: kirk.password }
       end
 
       it "puts user in session" do
@@ -39,7 +39,7 @@ describe SessionsController do
     context "without verified email" do
       let(:kirk) { kirk = Fabricate(:user) }
       before do
-        post :create, { email: kirk.email, password: kirk.password }
+        post :create, { user_name: kirk.user_name, password: kirk.password }
       end
 
       it "does not put user in session" do
@@ -58,7 +58,7 @@ describe SessionsController do
     context "with invalid credentials" do
       let(:kirk) { kirk = Fabricate(:user) }
       before do
-        post :create, { email: kirk.email, password: '123456' }
+        post :create, { user_name: kirk.user_name, password: '123456' }
       end
 
       it "rediret to sign_in path" do

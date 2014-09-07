@@ -3,12 +3,14 @@
 .row
   .s6.l6.col-md-offset-3
     .well.well-lg
-      = bootstrap_form_for(@user, layout: :horizontal) do |f|
+      = bootstrap_form_for(@user) do |f|
         = f.alert_message "Please fix the errors below."
-        = f.text_field :email
+        = f.text_field :user_name
+        = f.email_field :email
         = f.password_field :password, help: 'Must be at least 6 characters long'
         = f.password_field :password_confirmation, help: 'Must match password'
-        = f.text_field :full_name
+        = f.text_field :full_name, help: 'Optional'
+        = f.email_field :paypal_email, help: 'Optional'
         = f.form_group :terms, label: { text: "Review #{ link_to "Terms of Service","#tosModal", 'data-toggle' => "modal" }".html_safe } do
           = f.check_box :terms, label: 'I agree with the Terms of Service.'
         %p.text-center

@@ -76,8 +76,8 @@ describe Admin::CouponsController do
       it "does not create a coupon" do
         expect(Coupon.count).to eq(0)
       end
-      it "redirects to user home page" do
-        expect(response).to redirect_to home_path
+      it "redirects to user root path" do
+        expect(response).to redirect_to root_path
       end
       it "sets the flash danger" do
         expect(flash[:danger]).to be_present
@@ -108,7 +108,7 @@ describe Admin::CouponsController do
       
       before do 
         set_admin_user
-        patch :update, coupon: {id_of_coupon: coupon1.id_of_coupon, title: "Graphic Tees Select Styles", description: "Summer Essentials Sale 2 for $20 or $11.99 - $12.99 each Graphic tees. Select styles. orig. $20 each. 6/20-6/24.", code: "", restriction: "", link: coupon1.link, impression_pixel: coupon1.impression_pixel, image: coupon1.impression_pixel, store_id: nil, coupon_source_id: coupon1.coupon_source_id, start_date: "2014-06-20", end_date: "2014-06-25" }, id: coupon1.id, term:""
+        patch :update, coupon: {id_of_coupon: coupon1.id_of_coupon, title: "Graphic Tees Select Styles", description: "Summer Essentials Sale 2 for $20 or $11.99 - $12.99 each Graphic tees. Select styles. orig. $20 each. 6/20-6/24.", code: "", restriction: "", link: coupon1.link, impression_pixel: coupon1.impression_pixel, image: coupon1.impression_pixel, store_id: nil, coupon_source_id: coupon1.coupon_source_id, start_date: "2014-06-20", end_date: "2014-06-25" }, id: coupon1.id, term: "" 
       end
       
       it "sets @coupon to coupon to be patched" do

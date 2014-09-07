@@ -10,8 +10,7 @@
   %li.active
     = link_to "Account Balance", new_user_transaction_path(current_user)
   %li
-    %a(href="#profile" role="tab" data-toggle="tab")
-      Profile
+    = link_to "Profile", edit_user_path(current_user)
 .tab-content
   %h4
     Account Balance

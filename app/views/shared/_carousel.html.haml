@@ -9,8 +9,9 @@
     .carousel-inner
       - coupons.each_with_index do | coupon, i |
         .item{ class: (i == 0) ? "active" : nil }
-          =image_tag( "#{coupon.image}", size: "200x200", class: "img-responsive center-block")
-          .carousel-caption #{coupon.title}
+          =image_tag( "#{coupon.image}", size: "200x200", class: "img-responsive center-block", alt: "#{coupon.title}")
+          .carousel-caption
+            = link_to "#{coupon.title}", anchor: "coupon_#{coupon.id}"
     
   %a.left.btn-lg.carousel-control{ href: "#carousel-store-generic", 'role' => 'button', 'data-slide'=>"prev" }
     %span.glyphicon.glyphicon-chevron-left

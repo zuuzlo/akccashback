@@ -10,7 +10,7 @@ class AdminController < ApplicationController
       end
     else
       flash[:danger] = 'You don not have access to Admin area. Sign in first'
-      redirect_to stores_path
+      redirect_to root_path
     end
   end
 

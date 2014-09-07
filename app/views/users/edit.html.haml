@@ -1,0 +1,29 @@
+-provide(:title, "All Kohls Coupons Home Page | #{@user.user_name}")
+.page-header
+  %h1 
+    Homepage for #{@user.user_name}
+%ul.nav.nav-tabs{'role'=>"tablist"}
+  %li
+    = link_to "Favorite", user_path(current_user)
+  %li
+    = link_to "Activity", user_activities_path(current_user)
+  %li
+    = link_to "Account Balance", new_user_transaction_path(current_user)
+  %li.active
+    = link_to "Profile", edit_user_path(current_user)
+.tab-content
+  %h4
+    Profile
+  .row
+    .s6.l6.col-md-offset-3
+      .well.well-lg
+        = bootstrap_form_for(@user) do |f|
+          = f.alert_message "Please fix the errors below."
+          %p!="<b>User name:</b>  #{@user.user_name}"
+          = f.email_field :email
+          = f.text_field :full_name, help: 'Optional'
+          = f.password_field :password, help: 'Must be at least 6 characters long'
+          = f.password_field :password_confirmation, help: 'Must match password'
+          = f.email_field :paypal_email, help: "Optional (please provide if email doesn't match you paypal email)"
+          %p.text-center
+            = f.submit 'Update Profile', class: 'btn btn-lg btn-success'

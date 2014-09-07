@@ -1,0 +1,12 @@
+.page-header
+  %h1 Forgot Password or User Name?
+.row
+  .s6.l6.col-md-offset-3
+    .well.well-lg
+      %p We will send you an email with a link that you can use to reset your password, it will also have your registered user name.
+      = form_tag(forgot_passwords_path, 'role' => 'form') do
+        .form-group
+          = label_tag :email, "Email Address"
+          = text_field_tag :email, params[:email], class: 'form-control'
+        %fieldset.action 
+          = submit_tag('Send Email', :class => 'btn btn-success')

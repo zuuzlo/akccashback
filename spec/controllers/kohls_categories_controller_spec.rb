@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe CategoriesController do
+describe KohlsCategoriesController do
 
   describe "GET show" do
-    let(:cat1) { Fabricate(:category) }
+    let(:cat1) { Fabricate(:kohls_category) }
     before { get :show, id: cat1.id }
 
     it "sets @category" do
