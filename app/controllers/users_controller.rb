@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       AppMailer.delay.notify_on_registor(@user)
       flash[:success] = "Welcome to All Kohls Coupons Cash Back!"
-      redirect_to sign_in_path
+      redirect_to page_path('welcome')
     else
       flash[:danger] = "Please correct the below errors!"
       render 'new'

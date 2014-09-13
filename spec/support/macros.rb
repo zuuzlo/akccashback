@@ -16,3 +16,19 @@ def set_admin_user(a_user=nil)
   user.admin = true
   user.save
 end
+
+def sign_in(a_user=nil)
+  user = a_user || Fabricate(:user) 
+  visit sign_in_path
+  fill_in "Email", with: user.email
+  fill_in "Password", with: user.password
+  click_button "Log in"
+end
+
+def sign_out
+  visit sign_out_path
+end
+
+def goto_home_page
+  click_link("Videos")
+end

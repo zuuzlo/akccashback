@@ -1,8 +1,14 @@
 !!! 5
 %html(lang="en-US")
   %body
-    %p= @user.full_name
-    %p 
-      Thank you for making a withdrawl of 
-      = number_to_currency( @transaction.amount_cents.to_f / 100 ) 
-      at All Kohls Coupons Cash Back.
+    %p= @user.user_name
+    %p Thank you for the withdrawl request.  We will add the amount of #{number_to_currency( @transaction.amount_cents.to_f / 100 )} to paypal account:
+    - if @user.paypal_email
+      = @user.paypal_email
+    - else
+      = @user.email
+
+    %p
+    %p Thanks,
+    %br
+    %p AllKohlsCoupons.com

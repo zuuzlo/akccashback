@@ -47,7 +47,7 @@ describe UsersController do
       end
 
       it "redirects to sign in path" do
-        expect(response).to redirect_to sign_in_path
+        expect(response).to redirect_to page_path('welcome')
       end
     end
 
