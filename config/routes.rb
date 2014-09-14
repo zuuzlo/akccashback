@@ -39,7 +39,7 @@ Akccashback::Application.routes.draw do
   resources :kohls_types, only: [:show]
   resources :kohls_onlies, only: [:show]
 
-  resources :coupons do
+  resources :coupons, only: [:index] do
     member do
       post 'toggle_favorite'
     end
@@ -56,6 +56,7 @@ Akccashback::Application.routes.draw do
     resources :coupons, only: [:index, :new, :create, :edit, :update, :destroy]
     get 'get_kohls_coupons', to: 'coupons#get_kohls_coupons'
     get 'delete_kohls_coupons', to: 'coupons#delete_kohls_coupons'
+    get 'get_mailer_kohls_coupons', to: 'coupons#get_mailer_kohls_coupons'
     
     resources :activities, only: [:index]
     get 'get_activities', to: 'activities#get_activities'

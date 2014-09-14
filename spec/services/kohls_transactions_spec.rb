@@ -124,12 +124,30 @@ describe KohlsTransactions do
       end
     end
     context "is an existing coupon" do
-      let!(:coupon1) { Fabricate(:coupon, id_of_coupon: 4134) }
+      let!(:coupon1) { Fabricate(:coupon, title:"new coat", id_of_coupon: 4134) }
+
+      before do
+        LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
+        KohlsTransactions.kohls_update_coupons
+      end
 
       it "does not create new coupon" do
-        LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
-        KohlsTransactions.kohls_update_coupons    
         expect(Coupon.count).to eq(3)
+      end
+
+      it "first coupon title is 'new coat'" do
+        expect(Coupon.first.title).to eq("new coat")
+      end
+    end
+
+    context "coupon has been removed" do
+      let!(:removed_coupon1) { Fabricate(:removed_coupon, id_of_coupon: 4134) }
+
+      it "should not create new coupon" do
+        LsLinkdirectAPI.token = ENV["LINKSHARE_TOKEN"]
+        KohlsTransactions.stub(:find_product_image) { "http://image_url.com" }
+        KohlsTransactions.kohls_update_coupons    
+        expect(Coupon.count).to eq(2)
       end
     end
   end

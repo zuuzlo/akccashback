@@ -7,7 +7,7 @@ class Activity < ActiveRecord::Base
   validates :store_id, presence: true
 
   def user_name
-    User.find(self.user_id).full_name
+    User.find(self.user_id).user_name
   end 
 
   def store_name

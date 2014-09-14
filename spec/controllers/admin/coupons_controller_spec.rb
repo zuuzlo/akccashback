@@ -145,24 +145,56 @@ describe Admin::CouponsController do
   end
 
   describe "DELETE destroy" do
-    let(:coupon1) { Fabricate(:coupon) }
-    
-    before do 
-      set_admin_user
-      get :destroy, id: coupon1.id
-    end
-    
-    it "destroys coupon" do
-      expect(Coupon.count).to eq(0)
-    end
+    context "coupon is removed" do
+      let(:coupon1) { Fabricate(:coupon) }
+      
+      before do 
+        set_admin_user
+        get :destroy, id: coupon1.id
+      end
+      
+      it "destroys coupon" do
+        expect(Coupon.count).to eq(0)
+      end
 
-    it "redirects to index" do
-      expect(response).to redirect_to admin_coupons_path
-    end
+      it "redirects to index" do
+        expect(response).to redirect_to admin_coupons_path
+      end
 
-    it "sets the flash success" do
-      expect(flash[:success]).to be_present
+      it "sets the flash success" do
+        expect(flash[:success]).to be_present
+      end
+
+      it "creates new removed coupon" do
+        expect(RemovedCoupon.count).to eq(1)
+      end
     end
+    context "removed coupon is not saved" do
+      let(:coupon1) { Fabricate(:coupon) }
+      
+      before do 
+        set_admin_user
+        coupon1.update_columns(id_of_coupon: nil)
+        get :destroy, id: coupon1.id
+      end
+
+      it "does not destroys coupon" do
+        expect(Coupon.count).to eq(1)
+      end
+
+      it "renders index" do
+        expect(response).to render_template :index
+      end
+
+      it "sets the flash danger" do
+        expect(flash[:danger]).to be_present
+      end
+
+      it "does not creates new removed coupon" do
+        expect(RemovedCoupon.count).to eq(0)
+      end
+
+    end 
   end
 
   describe "GET index" do
@@ -320,6 +352,49 @@ describe Admin::CouponsController do
       it "redirect to admin page" do
         expect(response).to redirect_to admin_coupons_path
       end 
+    end
+  end
+
+  describe "GET get_mailer_kohls_coupons" do
+    (1..7).each do |i|
+      let!("coupon#{i}".to_sym) { Fabricate(:coupon, title: "coupon#{i}", code: "COUP#{i}", end_date: Time.now + i.day ) }
+    end
+
+    (8..9).each do |i|
+      let!("coupon#{i}".to_sym) { Fabricate(:coupon, title: "coupon#{i}", code: "COUP#{i}", end_date: Time.now - i.day ) }
+    end
+
+    (10..16).each do |i|
+      let!("coupon#{i}".to_sym) { Fabricate(:coupon, title: "coupon#{i}",code: nil, end_date: Time.now + i.day ) }
+    end
+
+    (17..19).each do |i|
+      let!("coupon#{i}".to_sym) { Fabricate(:coupon, title: "coupon#{i}",code: nil, end_date: Time.now - i.day ) }
+    end
+
+    before do
+      set_admin_user
+      get :get_mailer_kohls_coupons
+    end
+
+    it "returns http success" do
+      response.should be_success
+    end
+
+    it "sets @codes_coupons" do
+      expect(assigns(:codes_coupons).count).to eq(5)
+    end
+
+    it "newest @codes_coupons" do
+      expect(assigns(:codes_coupons)).to eq([ coupon1, coupon2, coupon3, coupon4, coupon5 ])
+    end
+
+    it "sets @offers_coupons" do
+      expect(assigns(:offers_coupons).count).to eq(5)
+    end
+
+    it "newest @offers_coupons" do
+      expect(assigns(:offers_coupons)).to eq([ coupon10, coupon11, coupon12, coupon13, coupon14 ])
     end
   end
 end

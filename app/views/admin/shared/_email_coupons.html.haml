@@ -1,0 +1,15 @@
+-coupons.each_with_index do |coupon, i|
+  .media{ 'id' => "coupon_#{coupon.id}", 'data-type' => "#{coupon_type(coupon)}" }
+    = image_tag("#{coupon.image}",size: "64x64", class: "pull-left media-object", alt: "#{coupon.title}")
+    .pull-right.media-object
+      = button_link(coupon)
+    -if coupon.code
+      .pull-right.media-object
+        Use Code: 
+        %b 
+          #{coupon.code}
+    .media-body
+      %h4.media-heading
+        #{coupon.title}
+      #{coupon.description}
+      

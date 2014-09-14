@@ -22,43 +22,43 @@ class KohlsTransactions
         impression_pixel: item.showURL,
         coupon_source_id: 1  
       }
-      
-      if item.endDate == nil || item.endDate == '' || item.endDate.downcase == "ongoing"
-        coupon_hash[ :end_date ] = Time.parse('2017-1-1') #DateTime.now + 5.years
-      else
-        coupon_hash[ :end_date ] = Time.parse(item.endDate)
-      end
+  
+      unless RemovedCoupon.pluck(:id_of_coupon).include? coupon_hash[:id_of_coupon]
+        if item.endDate == nil || item.endDate == '' || item.endDate.downcase == "ongoing"
+          coupon_hash[ :end_date ] = Time.parse('2017-1-1') #DateTime.now + 5.years
+        else
+          coupon_hash[ :end_date ] = Time.parse(item.endDate)
+        end
 
-      new_coupon = Coupon.new(coupon_hash)
-      name_check = FindKeywords::Keywords.new("#{item.linkName} #{item.textDisplay} #{item.categoryName}").keywords.join(" ")
-      name_check_raw = "#{item.linkName} #{item.textDisplay} #{item.categoryName}"
-      
-      if new_coupon.save
+        new_coupon = Coupon.new(coupon_hash)
+        name_check = FindKeywords::Keywords.new("#{item.linkName} #{item.textDisplay} #{item.categoryName}").keywords.join(" ")
+        name_check_raw = "#{item.linkName} #{item.textDisplay} #{item.categoryName}"
         
-        PjTransactions.pj_find_category(name_check).each do | cat |
-          new_coupon.categories << Category.find_by_ls_id(cat) if cat
-        end
+        if new_coupon.save
+          PjTransactions.pj_find_category(name_check).each do | cat |
+            new_coupon.categories << Category.find_by_ls_id(cat) if cat
+          end
 
-        PjTransactions.pj_find_type(name_check_raw).each do | type_x |
-          #require 'pry'; binding.pry
-          new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
-        end
+          PjTransactions.pj_find_type(name_check_raw).each do | type_x |
+            new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
+          end
 
-        find_kohls_cat(name_check).each do | kohls_cat |
-          new_coupon.kohls_categories << KohlsCategory.find_by_kc_id(kohls_cat) if kohls_cat
-        end
+          find_kohls_cat(name_check).each do | kohls_cat |
+            new_coupon.kohls_categories << KohlsCategory.find_by_kc_id(kohls_cat) if kohls_cat
+          end
 
-        find_kohls_only(name_check).each do | only_kohls |
-          new_coupon.kohls_onlies << KohlsOnly.find_by_kc_id(only_kohls) if only_kohls
-        end
+          find_kohls_only(name_check).each do | only_kohls |
+            new_coupon.kohls_onlies << KohlsOnly.find_by_kc_id(only_kohls) if only_kohls
+          end
 
-        find_kohls_type(name_check_raw).each do | type_kohls |
-          new_coupon.kohls_types << KohlsType.find_by_kc_id(type_kohls) if type_kohls
-        end
-      
-        #new_coupon.kohls_types << KohlsType.find_by_kc_id(6) if new_coupon.code
+          find_kohls_type(name_check_raw).each do | type_kohls |
+            new_coupon.kohls_types << KohlsType.find_by_kc_id(type_kohls) if type_kohls
+          end
         
-        new_coupon.update(image: find_product_image(name_check))
+          #new_coupon.kohls_types << KohlsType.find_by_kc_id(6) if new_coupon.code
+          
+          new_coupon.update(image: find_product_image(name_check))
+        end
       end
     end
   end

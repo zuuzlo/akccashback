@@ -38,9 +38,17 @@ class Admin::CouponsController < AdminController
   end
 
   def destroy
-    Coupon.find(params[:id]).destroy
-    flash[:success] = "You have removed a coupon."
-    redirect_to admin_coupons_path
+    coupon = Coupon.find(params[:id])
+    removed_coupon = RemovedCoupon.new(id_of_coupon: coupon.id_of_coupon)
+    
+    if removed_coupon.save
+      coupon.destroy
+      flash[:success] = "You have removed a coupon."
+      redirect_to admin_coupons_path
+    else
+      flash[:danger] = "Something is wrong coupon was not removed. Try again."
+      render 'index'
+    end
   end
 
   def index
@@ -70,6 +78,11 @@ class Admin::CouponsController < AdminController
     Coupon.delete(delete_coupons)
     flash[:success] = "Deleted #{delete_coupons.count} coupons."
     redirect_to admin_coupons_path
+  end
+
+  def get_mailer_kohls_coupons
+    @codes_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NOT NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)
+    @offers_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)
   end
 
   private

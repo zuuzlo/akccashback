@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830220803) do
+ActiveRecord::Schema.define(version: 20140914000326) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -132,6 +132,12 @@ ActiveRecord::Schema.define(version: 20140830220803) do
     t.string   "name"
     t.integer  "kc_id"
     t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "removed_coupons", force: true do |t|
+    t.integer  "id_of_coupon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
