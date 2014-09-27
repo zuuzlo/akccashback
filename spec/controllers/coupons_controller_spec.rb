@@ -92,4 +92,67 @@ describe CouponsController do
       expect(assigns(:cal_coupons).count).to eq(3)
     end
   end
+
+  describe "POST email_coupon" do
+    let!(:coupon1) { Fabricate(:coupon, code: 'BUYNOW', description: 'good car', end_date: Time.now + 1.days ) }
+    
+    before do
+      
+      request.env["HTTP_REFERER"] = coupons_path
+      #post :email_coupon, { coupon_id: coupon1.id, email: "test@test.com", id: current_user.id }
+    end
+
+    context "valid email address by current user" do
+      before do
+        set_current_user
+        post :email_coupon, { coupon_id: coupon1.id, email: "test@test.com", id: coupon1.id, user_id: current_user.id }
+      end
+
+      it "gets right coupon" do
+        expect(assigns(:coupon)).to eq(coupon1)
+      end
+
+      it "assigns current_user to user" do
+        expect(assigns(:user)).to eq(current_user)
+      end 
+
+      it "sends email" do
+        ActionMailer::Base.deliveries.should_not be_empty
+      end
+
+      it "email to righ recipient" do
+        message = ActionMailer::Base.deliveries.last
+        message.to.should == ["test@test.com"]
+      end
+
+      it "email has right content" do
+        message = ActionMailer::Base.deliveries.last
+        message.body.should include(User.find(1).email)
+      end
+
+      it "sets flash success" do
+        expect(flash[:success]).to be_present
+      end
+
+      it "redirects to current page"
+    end
+
+    context "not valid email by current user" do
+      before do
+        set_current_user
+        post :email_coupon, { coupon_id: coupon1.id, email: "test@test", id: coupon1.id, user_id: current_user.id }
+      end
+
+      it "sets flash danger" do
+        expect(flash[:danger]).to be_present
+      end
+    end
+
+    context "valid email address by not current user" do
+      let(:user1) { Fabricate(:user, verified_email: TRUE) }
+      it_behaves_like "require_sign_in" do
+        let(:action) { post :email_coupon, { coupon_id: coupon1.id, email: "test@test.com", id: coupon1.id, user_id: user1.id }}
+      end
+    end
+  end
 end

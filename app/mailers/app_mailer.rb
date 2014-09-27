@@ -20,4 +20,11 @@ class AppMailer < ActionMailer::Base
     @transaction = transaction
     mail to: @user.email, from: 'noreply@allkohlscoupons.com', subject: "All Kohls Coupons Cash Back has recieved your withdrawal request."
   end
+
+  def email_coupon(email, user, coupon)
+    @email = email
+    @user = user
+    @coupon = coupon
+    mail to: @email, from: 'noreply@allkohlscoupons.com', subject: "#{@user.email} has sent you a coupon from All Kohls Coupons"
+  end
 end

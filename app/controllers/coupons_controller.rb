@@ -1,6 +1,7 @@
 class CouponsController < ApplicationController
   include LoadCoupons
   include CouponCodesOffers
+  before_filter :require_user, only:[:toggle_favorite, :email_coupon]
 
   def index
     @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
@@ -52,6 +53,26 @@ class CouponsController < ApplicationController
   end
 
   def tab_offers
+    respond_to do |format|
+      format.html do  
+        redirect_to :back
+      end
+      format.js
+    end
+  end
+
+  def email_coupon
+    @coupon = Coupon.find_by_id(params[:coupon_id])
+    @user = User.find_by_id(params[:user_id])
+    @email = params[:email]
+    #require 'pry'; binding.pry
+    if @email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
+      AppMailer.delay.email_coupon(@email, @user, @coupon)
+      flash[:success] = "You have send the coupon to #{params[:email]}"
+    else
+      flash[:danger] = "#{params[:email]} is not a valid email!"
+    end
+    
     respond_to do |format|
       format.html do  
         redirect_to :back

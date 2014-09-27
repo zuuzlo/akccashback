@@ -1,0 +1,22 @@
+.modal.fade{ "id" => "coupon_modal_#{coupon.id}","tabindex"=>"-1", "role" => "dialog", "aria-labelledby" => "mySmallModalLabel", "aria-hidden" => "true" }
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        Send this coupon to inbox.
+        %button.close{"type"=>"button", "data-dismiss"=>"modal"}
+          %span{"aria-hidden" => "true"}
+            %span.glyphicon.glyphicon-remove-circle
+          %span.sr-only
+            Close
+      .modal-body
+        %div{:id => "flash_hook_#{coupon.id}"}
+        = form_tag(email_coupon_coupon_path(coupon, coupon_id: coupon.id), method: 'post', remote: true) do
+          .form-group
+            = label_tag :email, "Email Address"
+            = email_field_tag :email, params[:email], class: 'form-control'
+          = hidden_field_tag :user_id, current_user.id
+          %fieldset.action 
+            = submit_tag('Send Email', :class => 'btn btn-success')
+      .modal-footer
+        %small.text-left
+          Your email will only be used to send this coupon. This is not a subscription service and the reciever will not receive spam.

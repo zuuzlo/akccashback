@@ -66,17 +66,17 @@ module CouponsHelper
 
   def favorites(controller, coupon)
     if current_user.coupon_ids.include?(coupon.id)
-      link_to toggle_favorite_coupon_path(coupon, coupon_id: coupon.id), method: 'post', remote: true, id: "toggle_favorite_#{coupon.id}", class: "btn btn-default btn-xs" do
+      link_to toggle_favorite_coupon_path(coupon, coupon_id: coupon.id), method: 'post', remote: true, id: "toggle_favorite_#{coupon.id}", class: "btn btn-default btn-xs fav_toggle", "data-toggle" => "tooltip", "data-placement" => "left", "title" => "remove from favorites" do
         capture_haml do
-          haml_tag 'span.glyphicon.glyphicon-remove'
-          haml_concat 'Remove from Favorite Coupons'
+          haml_tag 'span.glyphicon.glyphicon-heart'
+          #haml_concat 'Remove from Favorite Coupons'
         end
       end
     else
-      link_to toggle_favorite_coupon_path(coupon, coupon_id: coupon.id), method: 'post', remote: true, id: "toggle_favorite_#{coupon.id}", class: "btn btn-default btn-xs" do
+      link_to toggle_favorite_coupon_path(coupon, coupon_id: coupon.id), method: 'post', remote: true, id: "toggle_favorite_#{coupon.id}", class: "btn btn-default btn-xs fav_toggle", "container" => 'body', "data-toggle" => "tooltip", "data-placement" => "left", "title" => "add to favorites" do
         capture_haml do
-          haml_tag 'span.glyphicon.glyphicon-ok'
-          haml_concat 'Add to Favorite Coupons'
+          haml_tag 'span.glyphicon.glyphicon-heart-empty'
+          #haml_concat 'Add to Favorite Coupons'
         end
       end
     end
@@ -89,5 +89,15 @@ module CouponsHelper
     else
       image_tag( "#{coupon.store_image}",size: "125x125", alt: "#{coupon.title}" )
     end
+  end
+
+  def email_coupon(coupon)
+    button_tag(nil, class: "btn btn-default btn-xs email_tool_tip", id: "coupon_email_button_#{coupon.id}", "data-toggle" => "modal", "data-target" => "#coupon_modal_#{coupon.id}", "container" => 'body', "rel" => "tooltip", "data-placement" => "right", "title" => "email coupon") do
+    #link_to "#", class: "btn btn-default btn-xs", id: "coupon_email_button_#{coupon.id}", "data-toggle" => "modal", "data-target" => "#coupon_modal_#{coupon.id}" do
+      capture_haml do
+        haml_tag "span.glyphicon.glyphicon-envelope"
+      end
+    end
+
   end
 end

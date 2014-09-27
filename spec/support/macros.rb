@@ -18,11 +18,11 @@ def set_admin_user(a_user=nil)
 end
 
 def sign_in(a_user=nil)
-  user = a_user || Fabricate(:user) 
+  user = a_user || Fabricate(:user, verified_email: true) 
   visit sign_in_path
-  fill_in "Email", with: user.email
+  fill_in "User name", with: user.user_name
   fill_in "Password", with: user.password
-  click_button "Log in"
+  click_button "Sign in"
 end
 
 def sign_out
@@ -30,5 +30,5 @@ def sign_out
 end
 
 def goto_home_page
-  click_link("Videos")
+  click_link("All Kohls Coupons Cash Back")
 end

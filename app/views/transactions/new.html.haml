@@ -56,7 +56,8 @@
               %a.close(data-dismiss='alert') &#215;
               -@transaction.errors.messages.each do |atb, msg|
                 Withdrawal #{msg.first}!
-          = bootstrap_form_for([@user, Transaction.new], layout: :horizontal, help: :block) do |f|
+          = bootstrap_form_for([@user, Transaction.new], help: :block) do |f|
             = f.hidden_field :description, value: "Withdrawal"
             = f.text_field :amount_cents, prepend: "$", label: "Amount to Withdraw"
-            = f.submit "Withdraw", class: "btn btn-success"
+            %p.text-center
+              = f.submit "Withdraw", class: "btn btn-lg btn-success"

@@ -4,6 +4,8 @@ ready = function(){
   $( ".well.store" ).equalizeHeights()
   $(".store_img").popover()
   $(".link_button").popover()
+  $(".fav_toggle").tooltip()
+  $(".email_tool_tip").tooltip()
 };
 $(document).ready(ready);
 $(document).on("page:load", ready);

@@ -2,8 +2,8 @@ Akccashback::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, :at => '/sidekiq'
   
-  get "transactions/new"
-  get "transactions/create"
+  #get "transactions/new"
+  #get "transactions/create"
   #get "activities/index"
   get "/sign_in", to: "sessions#new"
   post "/sign_in", to: "sessions#create"
@@ -42,6 +42,7 @@ Akccashback::Application.routes.draw do
   resources :coupons, only: [:index] do
     member do
       post 'toggle_favorite'
+      post 'email_coupon'
     end
 
     collection do

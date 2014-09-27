@@ -6,6 +6,8 @@
         %h4 #{coupon.title.split("- ").last}
         -if logged_in?
           = favorites(controller_name, coupon)
+          = email_coupon(coupon)
+          = render partial: 'shared/coupon_modal', locals: { coupon: coupon }
         .well.well-sm
           %p
             %b #{coupon.description}

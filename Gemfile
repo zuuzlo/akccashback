@@ -54,6 +54,7 @@ group :production do
 end
 
 group :development, :test do
+  gem "chromedriver-helper"
   gem "rspec-rails", "~> 2.14.1 "
   gem 'factory_girl_rails'
   gem 'pry'

@@ -1,0 +1,21 @@
+<%- if @email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/ %>
+  $("#flash_hook_<%= @coupon.id %>").replaceWith("<div id='flash_hook_<% @coupon.id %>'></div>");
+  $("#coupon_modal_<%= @coupon.id %> .modal-body").replaceWith("<div class='modal-body'>"
+    +"<div class='alert alert-success alert-dismissible' role='alert'>"
+    + "<button type='button' class='close' data-dismiss='alert'>"
+    + "<span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>"
+    + "You have emailed <%= @email %> the coupon."
+    + "</div>"
+    + "</div>");
+  setTimeout(function() {$("#coupon_modal_<%= @coupon.id %>").modal('hide');}, 5000)
+  setTimeout(function() {$("#coupon_modal_<%= @coupon.id %>").replaceWith("<%= escape_javascript(render :partial => 'shared/coupon_modal', :locals => { :coupon => @coupon }) %>");}, 6000)
+  setTimeout(function() {$("#coupon_modal_<%= @coupon.id %> input[type=email]").val('');}, 6000)
+<%- else %>
+  $("#flash_hook_<%= @coupon.id %>").replaceWith("<div id='flash_hook_<% @coupon.id %>'>"
+    +"<div class='alert alert-danger alert-dismissible' role='alert'>"
+    + "<button type='button' class='close' data-dismiss='alert'>"
+    + "<span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>"
+    + "<%= @email %> is not a valid email! Try again!"
+    + "</div>"
+    + "</div>");
+<%- end %>

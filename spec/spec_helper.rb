@@ -13,6 +13,11 @@ require 'vcr'
 
 Capybara.javascript_driver = :selenium #:webkit
 #Capybara.default_driver = :selenium
+=begin
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+=end
 WebMock.disable_net_connect!(:allow_localhost => true)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
