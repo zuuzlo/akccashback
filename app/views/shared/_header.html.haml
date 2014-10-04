@@ -1,4 +1,4 @@
-%nav.navbar.navbar-inverse{role: 'navigation'}
+%nav.navbar.navbar-inverse.navbar-fixed-top.yamm{role: 'navigation'}
   .navbar-header
     %button.navbar-toggle{type: 'button', "data-toggle" => 'collapse', "data-target" => ".navbar-ex1-collapse"}
       %span.sr-only Toggle navigation
@@ -6,47 +6,72 @@
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
-    = link_to 'All Kohls Coupons Cash Back', root_url, class: 'navbar-brand'
+    = link_to root_url, class: 'navbar-brand' do
+      %span.glyphicon.glyphicon-tags
+      All Kohls Coupons Cash Back
   .collapse.navbar-collapse.navbar-ex1-collapse 
     %ul.nav.navbar-nav
       - if logged_in?
-        %li{:class => "#{'active' if current_page?(user_path(current_user))}"}=link_to "Home", user_url(current_user)
+        %li{:class => "#{'active' if current_page?(user_path(current_user))}"}
+          =link_to user_url(current_user) do
+            %span.glyphicon.glyphicon-home
+            Home
+      - else
+        %li{:class => "#{'active' if current_page?(root_url)}"}
+          =link_to root_url do
+            %span.glyphicon.glyphicon-home
+            Home
       %li.dropdown
         %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-          Categories
+          %span.glyphicon.glyphicon-tag
+          Coupon Categories
           %b.caret
-        %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-          -KohlsCategory.with_coupons.each do |cat|
-            %li
-              = link_to kohls_category_path(cat) do
-                #{cat.name}            
-      %li.dropdown
-        %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-          Types
-          %b.caret
-        %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-          -KohlsType.with_coupons.each do |typ|
-            %li
-              = link_to kohls_type_path(typ) do
-                #{typ.name}
-      %li.dropdown
-        %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-          Only at Kohls
-          %b.caret
-        %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-          -KohlsOnly.with_coupons.each do |only|
-            %li
-              = link_to kohls_only_path(only) do
-                #{only.name} 
+        %ul.dropdown-menu
+          %li
+            .yamm-content
+              .row
+                %ul.col-sm-4.list-unstyled
+                  %li
+                    %p
+                      %strong
+                        %u
+                          Category
+                  -KohlsCategory.with_coupons.each do |cat|
+                    %li
+                      = link_to kohls_category_path(cat) do
+                        #{cat.name}
+                %ul.col-sm-4.list-unstyled
+                  %li
+                    %p
+                      %strong
+                        %u
+                          Type          
+                  -KohlsType.with_coupons.each do |typ|
+                    %li
+                      = link_to kohls_type_path(typ) do
+                        #{typ.name}
+                %ul.col-sm-4.list-unstyled
+                  %li
+                    %p
+                      %strong
+                        %u
+                          Only at Kohls 
+                  -KohlsOnly.with_coupons.each do |only|
+                    %li
+                      = link_to kohls_only_path(only) do
+                        #{only.name}
     %form.navbar-form.navbar-left{ action: search_coupons_path, method: "get"}
       %div.form-group
-        %input.form-control{type:"text", name: "search_term", placeholder:"Search", value: "" }
-      %button.btn.btn-default(type="submit") Search
+        %input.form-control{type:"text", name: "search_term", placeholder:"Search Term", value: "" }
+      = button_tag(type: "submit", class: "btn btn-primary" ) do
+        %span.glyphicon.glyphicon-search
+        Search
     - if logged_in?  
       %ul.nav.navbar-nav.navbar-right 
         %li.dropdown
           %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-            Welcome, #{current_user.user_name}
+            %span.glyphicon.glyphicon-user
+            #{current_user.user_name}
             %b.caret
           %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
             %li
@@ -65,5 +90,11 @@
                 = link_to 'Create New Email', admin_get_mailer_kohls_coupons_path
     - else
       %ul.nav.navbar-nav.navbar-right
-        %li=link_to "Sign in", sign_in_path
-        %li=link_to "Register", new_user_path
+        %li
+          =link_to sign_in_path do
+            %span.glyphicon.glyphicon-log-in
+            Sign in
+        %li
+          =link_to new_user_path do
+            %span.glyphicon.glyphicon-tasks
+            Register

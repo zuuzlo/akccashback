@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
+  include LoadCoupons
   include CouponCodesOffers
-  before_filter :require_user, only:[:show, :edit, :update]
+  before_filter :require_user, only:[:show, :edit, :update, :all_coupons]
   
   def new
     @user = User.new
@@ -64,8 +65,13 @@ class UsersController < ApplicationController
       flash[:danger] = "You can't edit someone elses profile!"
       redirect_to edit_user_path(current_user)
     end
+  end
 
-    
+  def all_coupons
+    @user = current_user
+    @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
+    load_coupon_offer_code(@coupons)
+    load_cal_picts(@coupons)
   end
 
   private

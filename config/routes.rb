@@ -16,10 +16,16 @@ Akccashback::Application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update] do
     resources :transactions, only: [:create, :new]
     resources :activities, only: [:index]
+    
+    member do
+      get 'all_coupons'
+    end
   end
 
   get 'register/:token', to: "users#register_confirmation", as: 'register_with_token'
   
+  #get 'users/:id/all_coupons', to: "users#all_coupons"
+
   resources :forgot_passwords, only: [:create]
   get 'forgot_password', to: 'forgot_passwords#new'
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'

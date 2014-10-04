@@ -1,5 +1,7 @@
 $("#toggle_favorite_<%= @coupon.id %>").tooltip('hide');
-<%- if @refer_controller != "users" %>
+<%- if @refer_controller == "users" && @action_name == "show" %>
+  $("#coupon_<%= @coupon.id %>").hide("slow")
+<%- else %>
   <%- if current_user.coupon_ids.include?(@coupon.id) %>
     $("#toggle_favorite_<%= @coupon.id %>").replaceWith("<a class='btn btn-default btn-xs fav_toggle'"
           + "container='body' data-placement='left' data-toggle='tooltip' title data-original-title='remove from favorite'"
@@ -17,6 +19,4 @@ $("#toggle_favorite_<%= @coupon.id %>").tooltip('hide');
           + "</a>");
     $("#toggle_favorite_<%= @coupon.id %>").tooltip('toggle');
   <%- end %>
-<%- else %>
-  $("#coupon_<%= @coupon.id %>").hide("slow")
 <%- end %>

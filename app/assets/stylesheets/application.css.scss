@@ -754,6 +754,10 @@ a.store_img:hover, a.store_img:focus, a.store_img:active {
   padding-bottom: 10px;
 }
 
+.carousel-caption p {
+  font-size: 12px;
+}
+
 .footer {
   padding-top: 19px;
   color: #777;
@@ -763,4 +767,31 @@ a.store_img:hover, a.store_img:focus, a.store_img:active {
 .modal-body.tos {
   font-size: 10px;
   color: grey
+}
+
+body { padding-top: 70px; }
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 0px !important; 
+}
+
+/* yamm large menu */
+.yamm .nav,
+.yamm .collapse,
+.yamm .dropup,
+.yamm .dropdown {
+  position: static;
+}
+.yamm .container {
+  position: relative;
+}
+.yamm .dropdown-menu {
+  left: auto;
+}
+.yamm .yamm-content {
+  padding: 10px 15px;
+}
+.yamm .dropdown .yamm-fw .dropdown-menu {
+  left: 0;
+  right: 0;
 }

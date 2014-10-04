@@ -2,15 +2,7 @@
 .page-header
   %h1 
     Homepage for #{@user.user_name}
-%ul.nav.nav-tabs{'role'=>"tablist"}
-  %li
-    = link_to "Favorite", user_path(current_user)
-  %li
-    = link_to "Activity", user_activities_path(current_user)
-  %li
-    = link_to "Account Balance", new_user_transaction_path(current_user)
-  %li.active
-    = link_to "Profile", edit_user_path(current_user)
+= render 'shared/user_nav_tabs'
 .tab-content
   %h4
     Profile

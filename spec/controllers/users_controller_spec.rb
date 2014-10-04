@@ -110,8 +110,15 @@ describe UsersController do
     let(:other_user) { Fabricate(:user, verified_email: TRUE) }
     let(:user1) { Fabricate(:user, verified_email: TRUE) }
     context "with authenticated user" do
+      
       before do
         set_current_user(user1)
+        store1 = Fabricate(:store, commission: 10)
+        coupon = Array.new
+        (1..7).each do |i|
+          coupon[i] = Fabricate(:coupon,store_id: store1.id, title: "coupon#{i}", code: ( i%2 == 0) ? "COUP#{i}" : nil, start_date: Time.now - i.day, end_date: Time.now + i.day )
+          user1.coupons << coupon[i]
+        end
       end
 
       it "load @user for other user not in session" do
@@ -119,7 +126,25 @@ describe UsersController do
         expect(assigns(:user)).to eq(user1)
       end
 
-      it "load @user favorite coupons"
+      it "load @user favorite coupons" do
+        get :show, { id: user1.id }
+        expect(assigns(:coupons).count).to eq(7)
+      end
+
+      it "counts numbers of coupon codes" do
+        get :show, { id: user1.id }
+        expect(assigns(:codes_count)).to eq(3)
+      end
+
+      it "counts numbers of offers" do
+        get :show, { id: user1.id }
+        expect(assigns(:offers_count)).to eq(4)
+      end
+
+      it "has five cal_coupons" do
+        get :show, { id: user1.id }
+        expect(assigns(:cal_coupons).count).to eq(5)
+      end
     end
 
     context "user email not verified" do
@@ -199,7 +224,6 @@ describe UsersController do
 
       it "renders edit" do
         expect(response).to render_template :edit
-
       end
     end
     context "not current user" do
@@ -233,6 +257,49 @@ describe UsersController do
      
       it_behaves_like "require_sign_in" do
         let(:action) { patch :update, id: user1.friendly_id, user: { paypal_email: 'user1@user1.com' } }
+      end
+    end
+  end
+
+  describe "GET all_coupons" do
+    let(:other_user) { Fabricate(:user, verified_email: TRUE) }
+    let(:user1) { Fabricate(:user, verified_email: TRUE) }
+    context "with authenticated user" do
+      before do
+        set_current_user(user1)
+        store1 = Fabricate(:store, commission: 10)
+        coupon = Array.new
+        (1..7).each do |i|
+          coupon[i] = Fabricate(:coupon,store_id: store1.id, title: "coupon#{i}", code: ( i%2 == 0) ? "COUP#{i}" : nil, start_date: Time.now - i.day, end_date: Time.now + i.day )
+        end
+        get :all_coupons, { id: user1.id }
+      end
+
+      it "sets @user to current user" do
+        expect(assigns(:user)).to eq(user1)
+      end
+
+      it "load all coupons coupons" do
+        expect(assigns(:coupons).count).to eq(7)
+      end
+
+      it "counts numbers of coupon codes" do
+        expect(assigns(:codes_count)).to eq(3)
+      end
+
+      it "counts numbers of offers" do
+        expect(assigns(:offers_count)).to eq(4)
+      end
+
+      it "has five cal_coupons" do
+        expect(assigns(:cal_coupons).count).to eq(5)
+      end
+    end
+
+    context "not current user" do
+
+      it_behaves_like "require_sign_in" do
+        let(:action) { get :all_coupons, { id: user1.friendly_id } }
       end
     end
   end

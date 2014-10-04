@@ -18,6 +18,8 @@ class CouponsController < ApplicationController
   def toggle_favorite
     @coupon = Coupon.find_by_id(params[:coupon_id])
     @refer_controller =  Rails.application.routes.recognize_path(request.referrer)[:controller]
+    @action_name = Rails.application.routes.recognize_path(request.referrer)[:action]
+  
     if current_user.coupon_ids.include?(@coupon.id)
       current_user.coupons.delete(@coupon)
       flash[:success] = "Coupon has been removed from your favorites."
@@ -65,7 +67,6 @@ class CouponsController < ApplicationController
     @coupon = Coupon.find_by_id(params[:coupon_id])
     @user = User.find_by_id(params[:user_id])
     @email = params[:email]
-    #require 'pry'; binding.pry
     if @email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
       AppMailer.delay.email_coupon(@email, @user, @coupon)
       flash[:success] = "You have send the coupon to #{params[:email]}"
