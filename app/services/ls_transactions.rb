@@ -107,17 +107,17 @@ class LsTransactions
 
   def self.title_shorten(title, length = 50)
     title.delete!('()') if title.include?('(')
-    name = title.strip.downcase
+    name = title.strip.downcase.gsub(/(\d{2}|\d{1})\/(\d{2}|\d{1})(-|.-.)(\d{2}|\d{1})\/(\d{2}|\d{1})/, "").gsub(/(sept|oct|nov|dec|jan|feb|mar|apr|may|jun|jul|aug)(\s*)(\d*|)(-|.-.|)/,"")
+    name.gsub!(/[^a-z\s\&]/i,"")
     name_array = name.split(" ")
-    items_to_remove = ['$', '%', 'reg', 'all', 'orig']
+    items_to_remove = ['reg', 'all', 'orig', 'valid', 'code']
 
     items_to_remove.each do |remove|
       name_array.reject! { |item| item.include?(remove) }
     end
+    name = name_array.uniq.join(" ")
 
-    name = name_array.join(" ")
-
-    break_words = [' on a ','off ',' at ',': ',' on ',' just ',' up to ',' - ',' for ',' w/ ', ' of ']
+    break_words = [' with ',' on a ','off ',' at ', ': ',' on ',' just ',' up to ',' - ',' for ',' w/ ', ' of ']
     break_words.each do | break_word |
       if break_word == ' at '
         @b_length = 100
@@ -146,8 +146,15 @@ class LsTransactions
     end
     
     #name.gsub!(/[[:punct:]]/,"")
-    name.gsub!(/[\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-]/,"")
+    name_array = name.split(" ")
+    items_to_remove = ['off', 'with']
+
+    items_to_remove.each do |remove|
+      name_array.reject! { |item| item.include?(remove) }
+    end
+    name = name_array.join(" ")
+    #name.gsub!(/[\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-]/,"")
     name.gsub!(/#{Regexp.escape('\/')}/, "")
-    name.gsub(/\d\s?/, "").titleize
+    name.titleize
   end
 end

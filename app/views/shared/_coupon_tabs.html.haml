@@ -3,14 +3,17 @@
     = link_to tab_all_coupons_path, method: 'get', remote: true, id: 'tab_all_pill' do
       %span.badge.pull-right
         #{@coupons.count}
+      %span.glyphicon.glyphicon-tags
       ALL
   %li
     = link_to tab_coupon_codes_coupons_path, method: 'get', remote: true, id: 'tab_coupon_codes_pill' do
       %span.badge.pull-right
         #{@codes_count}
+      %span.glyphicon.glyphicon-filter
       COUPON CODES
   %li
     = link_to tab_offers_coupons_path, method: 'get', remote: true, id: 'tab_offers_pill' do
       %span.badge.pull-right
         #{@offers_count}
+      %span.glyphicon.glyphicon-filter
       OFFERS

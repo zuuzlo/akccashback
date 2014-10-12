@@ -49,6 +49,7 @@ Akccashback::Application.routes.draw do
     member do
       post 'toggle_favorite'
       post 'email_coupon'
+      get 'coupon_link'
     end
 
     collection do
@@ -68,6 +69,10 @@ Akccashback::Application.routes.draw do
     resources :activities, only: [:index]
     get 'get_activities', to: 'activities#get_activities'
   end
+
+  get "sitemap.xml" => "sitemaps#index", :format => "xml", :as => :sitemap
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

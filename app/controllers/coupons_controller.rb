@@ -1,12 +1,15 @@
 class CouponsController < ApplicationController
   include LoadCoupons
   include CouponCodesOffers
+  include LoadSeo
+
   before_filter :require_user, only:[:toggle_favorite, :email_coupon]
 
   def index
     @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
     load_coupon_offer_code(@coupons)
     load_cal_picts(@coupons)
+    render :index, locals: { title: "Home", meta_keywords: seo_keywords(@coupons, nil), meta_description: seo_description(@coupons, nil ) } 
   end
 
   def search
@@ -80,5 +83,24 @@ class CouponsController < ApplicationController
       end
       format.js
     end
+  end
+
+  def coupon_link
+    coupon = Coupon.find_by_id(params[:id])
+    if logged_in?
+      if coupon.coupon_source_id == 1
+        link = coupon.link + "&u1=" + current_user.cashback_id
+      else
+        link = coupon.link + "?sid=" + current_user.cashback_id
+      end
+    else
+      if coupon.coupon_source_id == 1
+        link = coupon.link + "&u1=akccb"
+      else
+        link = coupon.link + "?sid=akccb"
+      end
+    end
+    
+    redirect_to link
   end
 end

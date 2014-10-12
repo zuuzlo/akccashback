@@ -88,7 +88,7 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
-    find_keywords (0.0.1)
+    find_keywords (0.0.3)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     haml (4.0.5)
@@ -281,7 +281,7 @@ DEPENDENCIES
   faker (~> 1.2.0)
   faraday
   figaro
-  find_keywords
+  find_keywords (~> 0.0.3)
   friendly_id (~> 5.0.0)
   haml
   haml-rails (>= 0.3.4)

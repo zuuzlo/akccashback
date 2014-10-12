@@ -18,7 +18,6 @@ class KohlsTransactions
         start_date: Time.parse(item.startDate),
         code: find_coupon_code("#{item.textDisplay}"),
         restriction: nil,
-        #image: "TODO",
         impression_pixel: item.showURL,
         coupon_source_id: 1  
       }

@@ -1,24 +1,21 @@
 module CouponsHelper
 
   def button_link(coupon)
-    if logged_in?
-      if coupon.coupon_source_id == 1
-        @link = coupon.link + "&u1=" + current_user.cashback_id
-      else
-        @link = coupon.link + "?sid=" + current_user.cashback_id
-      end
-    else
-      if coupon.coupon_source_id == 1
-        @link = coupon.link + "&u1=akccb"
-      else
-        @link = coupon.link + "?sid=akccb"
-      end
-    end
 
     if coupon.impression_pixel
-      link_to image_tag(coupon.impression_pixel, alt: "#{coupon.title}", size: "1x1") + "Get Deal","#{@link}", class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover"
+      link_to coupon_link_coupon_path(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover" do
+        capture_haml do
+          haml_concat image_tag(coupon.impression_pixel, alt: "#{coupon.title}", size: "1x1") + "Get Deal"
+          haml_tag 'span.glyphicon.glyphicon-chevron-right'
+        end
+      end
     else
-      link_to "Get Deal","#{@link}", class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover"
+      link_to coupon_link_coupon_path(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover" do
+        capture_haml do
+          haml_concat "Get Deal"
+          haml_tag 'span.label.label-danger'
+        end
+      end
     end
   end
 

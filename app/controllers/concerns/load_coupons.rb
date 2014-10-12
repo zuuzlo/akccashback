@@ -3,7 +3,7 @@ module LoadCoupons
   include CouponCodesOffers
 
   def load_coupons(title)
-    @coupons = title.coupons.where(["end_date >= :time AND start_date <= :time", { :time => DateTime.current }]).order( 'end_date ASC' )
+    @coupons = title.coupons.where(["end_date >= :time", { :time => DateTime.current }]).order( 'end_date ASC' )
   end
 
   def load_coupon_offer_code(coupons)

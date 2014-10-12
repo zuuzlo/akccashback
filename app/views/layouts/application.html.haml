@@ -2,10 +2,19 @@
 %html(lang="en-US")
   %head
     %title
-      = yield :title
+      = full_title(yield (:title))
     %meta(charset="UTF-8")
     %meta( http-equiv="X-UA-Compatible" content="IE=edge" )
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %meta(name="googlebot" content="noarchive")
+    %meta{ name: "description",  content: (yield :meta_description) }
+    %meta{ name: "keywords", content: (yield :meta_keywords) }
+    %meta{ property: "og:title", content: "All Kohls Coupons Cash Back" }
+    %meta{ property: "og:url", content: "cashback.allkohlscoupons.com" }
+    %meta{ property: "og:site_name", content: "CashBack.AllKohlsCoupons.com" }
+    %meta{ property: "og:description", content: (yield :meta_description) }
+    - unless filt_page?  
+      %meta{ name: "robots", content: "noindex" }
     = csrf_meta_tag
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"

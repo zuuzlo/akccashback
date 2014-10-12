@@ -12,7 +12,7 @@
   .collapse.navbar-collapse.navbar-ex1-collapse 
     %ul.nav.navbar-nav
       - if logged_in?
-        %li{:class => "#{'active' if current_page?(user_path(current_user))}"}
+        %li{:class => "#{'active' if user_home? }" }
           =link_to user_url(current_user) do
             %span.glyphicon.glyphicon-home
             Home
@@ -21,9 +21,9 @@
           =link_to root_url do
             %span.glyphicon.glyphicon-home
             Home
-      %li.dropdown
+      %li.dropdown{:class => "#{'active' if filt_page? }" }
         %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-          %span.glyphicon.glyphicon-tag
+          %span.glyphicon.glyphicon-filter
           Coupon Categories
           %b.caret
         %ul.dropdown-menu

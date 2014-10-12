@@ -7,6 +7,6 @@ class KohlsType < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   def self.with_coupons
-    KohlsType.joins(:coupons).where(["end_date >= :time AND start_date <= :time", { :time => DateTime.current }]).uniq.order( 'name ASC' )
+    KohlsType.joins(:coupons).where(["end_date >= :time", { :time => DateTime.current }]).uniq.order( 'name ASC' )
   end
 end
