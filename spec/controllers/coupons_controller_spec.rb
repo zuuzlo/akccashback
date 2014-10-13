@@ -133,8 +133,6 @@ describe CouponsController do
       it "sets flash success" do
         expect(flash[:success]).to be_present
       end
-
-      it "redirects to current page"
     end
 
     context "not valid email by current user" do
@@ -152,6 +150,29 @@ describe CouponsController do
       let(:user1) { Fabricate(:user, verified_email: TRUE) }
       it_behaves_like "require_sign_in" do
         let(:action) { post :email_coupon, { coupon_id: coupon1.id, email: "test@test.com", id: coupon1.id, user_id: user1.id }}
+      end
+    end
+  end
+
+  describe "GET coupon_link" do
+    let!(:coupon1) { coupon1 = Fabricate(:coupon, code: 'BUYNOW', description: 'good car', end_date: Time.now + 3.hour ) }
+
+    context "no user source id 1" do
+      before { get :coupon_link, id: coupon1.id }
+
+      it "should redirect to link of coupon plus added" do
+        expect(response).to redirect_to coupon1.link + "&u1=akccb"
+      end
+    end
+
+    context "user link source id 1" do
+      let(:user1) { Fabricate(:user, verified_email: TRUE) }
+      before do
+        set_current_user(user1)
+        get :coupon_link, id: coupon1.id
+      end
+      it "should redirect to link of coupon plus added" do
+        expect(response).to redirect_to coupon1.link + "&u1=#{user1.cashback_id}"
       end
     end
   end

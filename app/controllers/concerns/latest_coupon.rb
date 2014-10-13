@@ -5,5 +5,4 @@ module LatestCoupon
     last_coupon = category.coupons.order("created_at").last
     I18n.l(last_coupon.created_at, :format => :w3c)
   end
-
-  end
+end
