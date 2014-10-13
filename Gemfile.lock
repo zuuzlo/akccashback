@@ -27,6 +27,11 @@ GEM
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
     arel (4.0.2)
+    aws-sdk (1.55.0)
+      aws-sdk-v1 (= 1.55.0)
+    aws-sdk-v1 (1.55.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt-ruby (3.0.1)
     bootstrap-datepicker-rails (1.3.0.2)
       railties (>= 3.0)
@@ -47,6 +52,11 @@ GEM
     capybara-webkit (1.0.0)
       capybara (~> 2.0, >= 2.0.2)
       json
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.5.3)
@@ -73,6 +83,7 @@ GEM
       json (~> 1.8, >= 1.8.1)
       recursive-open-struct (~> 0.5, >= 0.5.0)
     erubis (2.7.0)
+    excon (0.40.0)
     execjs (2.2.1)
     fabrication (2.11.3)
     factory_girl (4.4.0)
@@ -89,6 +100,42 @@ GEM
       bundler (~> 1.0)
       rails (>= 3, < 5)
     find_keywords (0.0.3)
+    fog (1.24.0)
+      fog-brightbox
+      fog-core (~> 1.23)
+      fog-json
+      fog-radosgw (>= 0.0.2)
+      fog-sakuracloud (>= 0.0.4)
+      fog-softlayer
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-brightbox (0.5.1)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto
+    fog-core (1.24.0)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.0)
+      multi_json (~> 1.0)
+    fog-radosgw (0.0.3)
+      fog-core (>= 1.21.0)
+      fog-json
+      fog-xml (>= 0.0.1)
+    fog-sakuracloud (0.1.1)
+      fog-core
+      fog-json
+    fog-softlayer (0.3.20)
+      fog-core
+      fog-json
+    fog-xml (0.1.0)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
+    formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     haml (4.0.5)
@@ -107,6 +154,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
+    inflecto (0.0.2)
+    ipaddress (0.8.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -138,6 +187,9 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     pg (0.17.1)
@@ -179,6 +231,7 @@ GEM
     redis (3.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
+    rmagick (2.13.3)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -265,6 +318,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   bcrypt-ruby (~> 3.0.0)
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.0)
@@ -272,6 +326,7 @@ DEPENDENCIES
   capybara (~> 2.0.2)
   capybara-email
   capybara-webkit
+  carrierwave
   chromedriver-helper
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
@@ -282,6 +337,7 @@ DEPENDENCIES
   faraday
   figaro
   find_keywords (~> 0.0.3)
+  fog
   friendly_id (~> 5.0.0)
   haml
   haml-rails (>= 0.3.4)
@@ -301,6 +357,7 @@ DEPENDENCIES
   rails_12factor
   recursive-open-struct (~> 0.5.0)
   redis
+  rmagick
   roo
   rspec-rails (~> 2.14.1)
   sass-rails (~> 4.0.0)

@@ -22,6 +22,7 @@ class Admin::CouponsController < AdminController
 
   def update
     @coupon = Coupon.find(params[:id])
+
     if params[:term] == ""
       
       if @coupon.update(coupon_params)
@@ -88,6 +89,6 @@ class Admin::CouponsController < AdminController
   private
 
   def coupon_params
-    params.require(:coupon).permit(:id, :id_of_coupon, :title, :description, :start_date, :end_date, :code, :restriction, :link, :impression_pixel, :image, :store_id, :coupon_source_id )
+    params.require(:coupon).permit(:id, :id_of_coupon, :title, :description, :start_date, :end_date, :code, :restriction, :link, :impression_pixel, :image, :store_id, :coupon_source_id, :remote_image_url )
   end
 end

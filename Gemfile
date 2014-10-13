@@ -21,7 +21,6 @@ gem 'faraday'
 gem 'roo'
 gem 'friendly_id', '~> 5.0.0'
 
-gem 'figaro'
 gem "sinatra", "~> 1.4.5"
 gem 'pg'
 gem 'bootstrap-datepicker-rails'
@@ -31,6 +30,12 @@ gem 'redis'
 gem 'unicorn'
 
 gem 'high_voltage'
+
+gem 'rmagick'
+gem 'carrierwave'
+gem 'fog'
+gem 'figaro'
+gem 'aws-sdk'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

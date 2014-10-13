@@ -17,7 +17,8 @@
         - if @new_image
           = image_tag("#{@new_image}", size: "40x40") 
           = @new_image
-        = f.text_field :image
+        = f.url_field :remote_image_url
+        = f.hidden_field :image_cache
         = f.number_field :store_id
         = f.number_field :coupon_source_id
         = f.date_field :start_date, label: 'Start Date', class: 'form-control'

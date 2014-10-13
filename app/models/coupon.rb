@@ -18,6 +18,8 @@ class Coupon < ActiveRecord::Base
   validates :title, presence: true
   validates :link, presence: true
 
+  mount_uploader :image, CouponImageUploader
+
   def time_left
     distance_of_time_in_words(end_date, DateTime.now)
   end
