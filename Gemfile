@@ -39,6 +39,7 @@ gem 'aws-sdk'
 
 gem 'dalli'
 gem 'memcachier'
+gem 'actionpack-action_caching'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

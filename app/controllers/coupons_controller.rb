@@ -3,10 +3,11 @@ class CouponsController < ApplicationController
   include CouponCodesOffers
   include LoadSeo
 
+  caches_action :index
+
   before_filter :require_user, only:[:toggle_favorite, :email_coupon]
 
   def index
-    @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
     @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
     load_coupon_offer_code(@coupons)
     load_cal_picts(@coupons)
