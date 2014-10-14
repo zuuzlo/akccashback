@@ -84,6 +84,7 @@ class Coupon < ActiveRecord::Base
       end
     end
   end
+
   protected
 
   def nil_if_blank

@@ -7,6 +7,7 @@ class CouponsController < ApplicationController
 
   def index
     @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
+    @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
     load_coupon_offer_code(@coupons)
     load_cal_picts(@coupons)
     render :index, locals: { title: "Home", meta_keywords: seo_keywords(@coupons, nil), meta_description: seo_description(@coupons, nil ) } 
