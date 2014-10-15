@@ -95,6 +95,11 @@ module CouponsHelper
         haml_tag "span.glyphicon.glyphicon-envelope"
       end
     end
+  end
 
+  def cache_key_for_coupons
+    count          = Coupon.count
+    max_updated_at = Coupon.maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "coupons/all-#{count}-#{max_updated_at}"
   end
 end

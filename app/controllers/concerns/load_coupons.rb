@@ -12,7 +12,7 @@ module LoadCoupons
   end
 
   def load_cal_picts(coupons)
-    cals = coupons.pluck(:id).sample(5)
+    cals = coupons.collect(&:id).sample(5)
     @cal_coupons = Coupon.find(cals)
   end
 

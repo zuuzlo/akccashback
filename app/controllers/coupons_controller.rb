@@ -3,8 +3,6 @@ class CouponsController < ApplicationController
   include CouponCodesOffers
   include LoadSeo
 
-  caches_action :index
-
   before_filter :require_user, only:[:toggle_favorite, :email_coupon]
 
   def index

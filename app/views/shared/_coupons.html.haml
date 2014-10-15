@@ -1,27 +1,28 @@
 -coupons.each_with_index do |coupon, i|
-  .l4.s4{ 'id' => "coupon_#{coupon.id}", 'data-type' => "#{coupon_type(coupon)}" }
-    .thumbnail.coupon
-      = product_image(coupon)
-      .caption
-        %h4 #{coupon.title.split("- ").last}
-        -if logged_in?
-          = favorites(controller_name, coupon)
-          = email_coupon(coupon)
-          = render partial: 'shared/coupon_modal', locals: { coupon: coupon }
-        .well.well-sm
-          %p
-            %b #{coupon.description}
-          -if coupon.code 
-            %h5
-              Coupon Code:
-              %b
-                #{coupon.code}
-          %span.label.label-default
-            #{coupon.store_commission} 
-            \% cash back
-        = button_link(coupon)
-        %h5
-          = time_left_display(coupon)
-        -if coupon.kohls_categories.size > 0
+  -cache(coupon) do
+    .l4.s4{ 'id' => "coupon_#{coupon.id}", 'data-type' => "#{coupon_type(coupon)}" }
+      .thumbnail.coupon
+        = product_image(coupon)
+        .caption
+          %h4 #{coupon.title.split("- ").last}
+          -if logged_in?
+            = favorites(controller_name, coupon)
+            = email_coupon(coupon)
+            = render partial: 'shared/coupon_modal', locals: { coupon: coupon }
+          .well.well-sm
+            %p
+              %b #{coupon.description}
+            -if coupon.code 
+              %h5
+                Coupon Code:
+                %b
+                  #{coupon.code}
+            %span.label.label-default
+              #{coupon.store_commission} 
+              \% cash back
+          = button_link(coupon)
           %h5
-            = render coupon.kohls_categories
+            = time_left_display(coupon)
+          -if coupon.kohls_categories.size > 0
+            %h5
+              = render coupon.kohls_categories
