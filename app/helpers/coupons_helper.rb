@@ -1,20 +1,10 @@
 module CouponsHelper
 
   def button_link(coupon)
-
-    if coupon.impression_pixel
-      link_to coupon_link_coupon_path(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover" do
-        capture_haml do
-          haml_concat image_tag(coupon.impression_pixel, alt: "#{coupon.title}", size: "1x1") + "Get Deal"
-          haml_tag 'span.glyphicon.glyphicon-chevron-right'
-        end
-      end
-    else
-      link_to coupon_link_coupon_path(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to get deal at #{coupon.store.name}.", "data-trigger" => "hover" do
-        capture_haml do
-          haml_concat "Get Deal"
-          haml_tag 'span.label.label-danger'
-        end
+    link_to coupon_link_coupon_path(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to shop at #{coupon.store.name}.", "data-trigger" => "hover" do
+      capture_haml do
+        haml_concat "Get Deal"
+        haml_tag 'span.glyphicon.glyphicon-chevron-right'
       end
     end
   end
@@ -97,9 +87,9 @@ module CouponsHelper
     end
   end
 
-  def cache_key_for_coupons
+  def cache_key_for_coupon(coupon)
     count          = Coupon.count
     max_updated_at = Coupon.maximum(:updated_at).try(:utc).try(:to_s, :number)
-    "coupons/all-#{count}-#{max_updated_at}"
+    "coupons/#{coupon.id}-#{count}-#{max_updated_at}"
   end
 end
