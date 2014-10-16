@@ -205,6 +205,8 @@ GEM
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
@@ -360,6 +362,7 @@ DEPENDENCIES
   pg
   pry
   pry-nav
+  rack-cache
   rails (= 4.0.0)
   rails_12factor
   recursive-open-struct (~> 0.5.0)
