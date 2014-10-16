@@ -37,6 +37,7 @@ gem 'fog'
 gem 'figaro'
 gem 'aws-sdk'
 
+gem 'rack-cache'
 gem 'dalli'
 gem 'memcachier'
 gem 'actionpack-action_caching'
