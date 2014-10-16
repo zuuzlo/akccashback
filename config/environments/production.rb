@@ -22,12 +22,10 @@ Akccashback::Application.configure do
                            :socket_failure_delay => 0.2,
                            :value_max_bytes => 10485760)
 
-config.action_dispatch.rack_cache = {
-  :metastore    => client,
-  :entitystore  => client
-}
-
-config.static_cache_control = "public, max-age=2592000"
+  config.action_dispatch.rack_cache = {
+    :metastore    => client,
+    :entitystore  => client
+  }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
@@ -68,7 +66,7 @@ config.static_cache_control = "public, max-age=2592000"
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store
+  config.cache_store = :dalli_store, nil, { :namespace => NAME_OF_RAILS_APP, :expires_in => 1.day, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
