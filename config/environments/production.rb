@@ -26,6 +26,7 @@ Akccashback::Application.configure do
     :metastore    => client,
     :entitystore  => client
   }
+  config.static_cache_control = "public, max-age=2592000"
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
@@ -34,7 +35,7 @@ Akccashback::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   #config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=2592000"
+  #config.static_cache_control = "public, max-age=2592000"
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   config.assets.css_compressor = :sass
@@ -69,7 +70,7 @@ Akccashback::Application.configure do
   config.cache_store = :dalli_store, { :namespace => 'akccashback', :expires_in => 1.day, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "http://dz6adghp8ni1v.cloudfront.net"
+  #config.action_controller.asset_host = "http://dz6adghp8ni1v.cloudfront.net"
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
