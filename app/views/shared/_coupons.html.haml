@@ -1,5 +1,5 @@
--coupons.each_with_index do |coupon, i|
-  -cache(coupon) do
+- coupons.each_with_index do |coupon, i|
+  - cache_unless logged_in?, coupon do
     .l4.s4{ 'id' => "coupon_#{coupon.id}", 'data-type' => "#{coupon_type(coupon)}" }
       .thumbnail.coupon
         = product_image(coupon)
