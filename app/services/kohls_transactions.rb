@@ -61,6 +61,7 @@ class KohlsTransactions
         end
       end
     end
+    Coupon.all.each { |c| c.touch }
   end
  
   def self.find_kohls_cat(term)
