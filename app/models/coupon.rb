@@ -7,11 +7,11 @@ class Coupon < ActiveRecord::Base
   before_save :nil_if_blank
 
   belongs_to :store
-  has_and_belongs_to_many :categories
-  has_and_belongs_to_many :kohls_categories
-  has_and_belongs_to_many :kohls_onlies
-  has_and_belongs_to_many :kohls_types
-  has_and_belongs_to_many :ctypes
+  has_and_belongs_to_many :categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  has_and_belongs_to_many :kohls_categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  has_and_belongs_to_many :kohls_onlies, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  has_and_belongs_to_many :kohls_types, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  has_and_belongs_to_many :ctypes, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :users
   
   validates :id_of_coupon, presence: true, uniqueness: true
@@ -19,6 +19,10 @@ class Coupon < ActiveRecord::Base
   validates :link, presence: true
 
   mount_uploader :image, CouponImageUploader
+
+  def touch_updated_at(object)
+    self.touch if persisted?
+  end
 
   def time_left
     distance_of_time_in_words(end_date, DateTime.now)

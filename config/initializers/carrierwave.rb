@@ -18,4 +18,5 @@ CarrierWave.configure do |config|
   end
   config.cache_dir = "#{Rails.root}/tmp/uploads"
   config.fog_attributes = { :multipart_chunk_size => 104857600 }
+  config.fog_attributes = {'Cache-Control'=>"max-age=#{14.day.to_i}"}
 end

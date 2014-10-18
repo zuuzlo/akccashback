@@ -36,30 +36,33 @@
                       %strong
                         %u
                           Category
-                  -KohlsCategory.with_coupons.each do |cat|
+                  - KohlsCategory.with_coupons.each do |cat|
                     %li
-                      = link_to kohls_category_path(cat) do
-                        #{cat.name}
+                      - cache(cat) do
+                        = link_to kohls_category_path(cat) do
+                          #{cat.name}
                 %ul.col-sm-4.list-unstyled
                   %li
                     %p
                       %strong
                         %u
-                          Type          
-                  -KohlsType.with_coupons.each do |typ|
+                          Type 
+                  - KohlsType.with_coupons.each do |typ|
                     %li
-                      = link_to kohls_type_path(typ) do
-                        #{typ.name}
+                      - cache(typ) do
+                        = link_to kohls_type_path(typ) do
+                          #{typ.name}
                 %ul.col-sm-4.list-unstyled
                   %li
                     %p
                       %strong
                         %u
-                          Only at Kohls 
+                          Only at Kohls
                   -KohlsOnly.with_coupons.each do |only|
                     %li
-                      = link_to kohls_only_path(only) do
-                        #{only.name}
+                      - cache(only) do
+                        = link_to kohls_only_path(only) do
+                          #{only.name}
     %form.navbar-form.navbar-left{ action: search_coupons_path, method: "get"}
       %div.form-group
         %input.form-control{type:"text", name: "search_term", placeholder:"Search Term", value: "" }
