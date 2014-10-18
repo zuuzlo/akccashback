@@ -67,7 +67,7 @@ Akccashback::Application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, { :namespace => 'akccashback', :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store, { :namespace => 'akccashback', :expires_in => 14.day, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   #config.action_controller.asset_host = "http://dz6adghp8ni1v.cloudfront.net"
