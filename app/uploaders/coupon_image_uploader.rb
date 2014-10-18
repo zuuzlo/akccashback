@@ -11,9 +11,5 @@ class CouponImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def cache_dir
-    '/tmp/cashbackakc-image_cache'
-  end
-
   process :resize_to_fill => [125, 125]
 end
