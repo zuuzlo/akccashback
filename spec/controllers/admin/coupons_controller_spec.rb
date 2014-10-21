@@ -397,4 +397,12 @@ describe Admin::CouponsController do
       expect(assigns(:offers_coupons)).to eq([ coupon10, coupon11, coupon12, coupon13, coupon14 ])
     end
   end
+
+  describe "POST get_keywords" do
+    
+    it "sets what kohls area type cat | type | only" do
+      
+    end
+
+  end
 end

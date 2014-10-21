@@ -65,6 +65,7 @@ Akccashback::Application.routes.draw do
     get 'get_kohls_coupons', to: 'coupons#get_kohls_coupons'
     get 'delete_kohls_coupons', to: 'coupons#delete_kohls_coupons'
     get 'get_mailer_kohls_coupons', to: 'coupons#get_mailer_kohls_coupons'
+    get 'get_keywords', to: 'coupons#get_keywords'
     
     resources :activities, only: [:index]
     get 'get_activities', to: 'activities#get_activities'

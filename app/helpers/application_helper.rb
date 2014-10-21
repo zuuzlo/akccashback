@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def filt_page?
-    if ['kohls_categories', 'kohls_types', 'kohls_onlies', 'coupons'].include?(params[:controller])
+    if ['kohls_categories', 'kohls_types', 'kohls_onlies'].include?(params[:controller])
       true
     else
       false

@@ -1,4 +1,6 @@
 class Admin::CouponsController < AdminController
+
+  include AdminLoadSeo
   
   def new
     @coupon = Coupon.new
@@ -84,6 +86,32 @@ class Admin::CouponsController < AdminController
   def get_mailer_kohls_coupons
     @codes_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NOT NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)
     @offers_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)
+  end
+
+  def get_keywords
+    
+    type = params[:type]
+
+    if type
+      klass = Object.const_get type
+      
+      case type
+      when "KohlsCategory"
+        type_id = params['type_k_cat']['type_id']
+      when "KohlsType"
+        type_id = params['type_k_type']['type_id']
+      when "KohlsOnly"
+        type_id = params['type_k_only']['type_id']
+      else
+        flash[:danger] = "Please select type and chose a category!"
+        render 'get_keywords'
+      end
+
+      type_name = klass.find(type_id)
+      coupons = type_name.coupons
+      @description = seo_description(coupons, type_name)
+      @keywords = seo_keywords(coupons, type_name)
+    end
   end
 
   private
