@@ -24,8 +24,6 @@ Akccashback::Application.routes.draw do
 
   get 'register/:token', to: "users#register_confirmation", as: 'register_with_token'
   
-  #get 'users/:id/all_coupons', to: "users#all_coupons"
-
   resources :forgot_passwords, only: [:create]
   get 'forgot_password', to: 'forgot_passwords#new'
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
@@ -71,6 +69,8 @@ Akccashback::Application.routes.draw do
     get 'get_activities', to: 'activities#get_activities'
   end
 
+  get '/pages/*id' => 'pages#show', as: :page, format: false,  path: '*id'
+  
   get "sitemap.xml" => "sitemaps#index", :format => "xml", :as => :sitemap
 
   
