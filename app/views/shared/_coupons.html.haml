@@ -22,7 +22,10 @@
               \% cash back
           = button_link(coupon)
           %h5
-            = time_left_display(coupon)
+            - if coupon.preview?
+              = not_released(coupon)
+            - else
+              = time_left_display(coupon)
           -if coupon.kohls_categories.size > 0
             %h5
               = render coupon.kohls_categories

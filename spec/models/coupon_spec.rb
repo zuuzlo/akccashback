@@ -74,4 +74,23 @@ describe Coupon do
       expect(coupon1.restriction).to be_nil
     end
   end
+
+  describe "#preview?" do
+    it "returns true if the start_date is greater than now" do
+      coupon1 = Fabricate(:coupon, title: "coupon1", description: 'this is a good coupon', start_date: Time.now + 1.day, end_date: Time.now + 2.day, store_id: store1.id )
+      expect(coupon1.preview?).to be_true
+    end
+
+    it "returns false if the start_date is less than now" do
+      coupon1 = Fabricate(:coupon, title: "coupon1", description: 'this is a good coupon', start_date: Time.now - 1.day, end_date: Time.now + 2.day, store_id: store1.id )
+      expect(coupon1.preview?).to be_false
+    end
+  end
+
+  describe "#time_til_good" do
+    it "returns time left until coupon is valid in words" do
+      coupon1 = Fabricate(:coupon, title: "coupon1", description: 'this is a good coupon', start_date: Time.now + 1.day, end_date: Time.now + 2.day, store_id: store1.id )
+      expect(coupon1.time_til_good).to eq("1 day")
+    end
+  end
 end

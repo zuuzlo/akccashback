@@ -7,6 +7,14 @@ Fabricator(:coupon) do
   code { Faker::Lorem.word }
   restriction { Faker::Lorem.sentence( word_count = 5 ) }
   link { Faker::Internet.url }
-  image { "holder.js/100%x180" }
+  #image { "holder.js/100%x180" }
+
+  image {
+    Rack::Test::UploadedFile.new(
+      "./spec/support/files/1322715.jpeg",
+      "image/jpeg"
+    )
+  }
+  
   coupon_source_id { 1 }
 end
