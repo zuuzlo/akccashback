@@ -28,7 +28,7 @@ describe TransactionsController do
 
        it "email has right content" do
         message = ActionMailer::Base.deliveries.last
-        message.body.should include(User.find(1).full_name)
+        message.body.should include(User.find(1).user_name)
       end
 
       it "the flash success is set" do
@@ -91,7 +91,7 @@ describe TransactionsController do
     let!(:transaction1) { Fabricate(:transaction, user_id: user1.id) }
     before do
       set_current_user(user1)
-      get :new
+      get :new, { user_id: user1.id }
     end
 
     it "returns http success" do

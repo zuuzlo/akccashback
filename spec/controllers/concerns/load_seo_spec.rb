@@ -25,7 +25,7 @@ describe FakesController do
       end
     end
 
-    describe "#find_keywords" do
+    describe "#seo_keywords" do
       it "returns keywords" do
         expect(subject.seo_keywords(Coupon.all, cat1)).to be_a(String)
       end

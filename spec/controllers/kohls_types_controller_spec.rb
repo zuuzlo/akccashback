@@ -1,23 +1,22 @@
 require 'spec_helper'
 
-describe KohlsCategoriesController do
+describe KohlsTypesController do
 
   describe "GET show" do
-    let(:cat1) { Fabricate(:kohls_category) }
+    let(:type1) { Fabricate(:kohls_type) }
     before do 
       store1 = Fabricate(:store, commission: 10)
       coupon = Array.new
       
       (1..7).each do |i|
         coupon[i] = Fabricate(:coupon,store_id: store1.id, title: "coupon#{i}", code: ( i%2 == 0) ? "COUP#{i}" : nil, start_date: Time.now - i.day, end_date: Time.now + i.day )
-        cat1.coupons << coupon[i]
+        type1.coupons << coupon[i]
       end
-
-      get :show, id: cat1.id
+      get :show, id: type1.id
     end
-  
-    it "sets @category" do
-      expect(assigns(:category)).to eq(cat1)
+
+    it "sets @ktype" do
+      expect(assigns(:ktype)).to eq(type1)
     end
 
     it "sets @coupons" do

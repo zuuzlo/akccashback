@@ -68,10 +68,10 @@ Akccashback::Application.routes.draw do
     resources :activities, only: [:index]
     get 'get_activities', to: 'activities#get_activities'
   end
-
+  get "sitemap.xml" => "sitemaps#index", :format => "xml", :as => :sitemap
   get '/pages/*id' => 'pages#show', as: :page, format: false,  path: '*id'
   
-  get "sitemap.xml" => "sitemaps#index", :format => "xml", :as => :sitemap
+  
 
   
 

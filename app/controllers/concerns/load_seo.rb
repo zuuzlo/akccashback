@@ -11,7 +11,7 @@ module LoadSeo
         description = "#{Time.now.strftime("%B, %Y")} Kohls coupons. "
       end
       coupons.each do |coupon|
-        description += coupon.description.gsub(/(\d{2}|\d{1})\/(\d{2}|\d{1})(-|.-.)(\d{2}|\d{1})\/(\d{2}|\d{1})/, "").gsub(/(Sept|Oct|Nov|Dec)(\s*)(\d*|)(-|.-.|)/,"") + " " if description.length < 160
+        description += coupon.description.gsub(/(\d{2}|\d{1})\/(\d{2}|\d{1})(-|.-.)(\d{2}|\d{1})\/(\d{2}|\d{1})/, "").gsub(/(Sept|Oct|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)(\s*)(\d*|)(-|.-.|)/,"") + " " if description.length < 160
       end
 
       description[0..150] + "..."
