@@ -54,9 +54,27 @@ describe ApplicationHelper do
         expect(helper.filt_page?).to be_true
       end
     end
+
+    context "returns false" do
+      it "if one of pages returns false" do
+        params[:controller] = 'users'
+        expect(helper.filt_page?).to be_false
+      end
+    end
   end
 
   describe "#full_title" do
+    context "page title empty" do
+      it "returns base title" do
+        expect(helper.full_title("")).to eq("Cash Back at Kohls: 30% Promo Codes, Kohls Coupon Codes")
+      end
+    end
+
+    context "page title has a value" do
+      it "returns base title" do
+        expect(helper.full_title("Baby")).to eq("Cash Back at Kohls: 30% Promo Codes, Kohls Coupon Codes | Baby Coupons and Deals")
+      end
+    end
   end
 
 

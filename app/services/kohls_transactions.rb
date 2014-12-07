@@ -123,7 +123,8 @@ class KohlsTransactions
       1 => [/\$/],
       2 => [/\%/],
       3 => [/free shipping/, /ships free/],
-      4 => [/code/]
+      4 => [/code/],
+      6 => [/sitewide/]
     }
 
     types = []

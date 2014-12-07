@@ -1,15 +1,14 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the TransactionsHelper. For example:
-#
-# describe TransactionsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 describe TransactionsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#available_balance" do
+    let!(:user1) { Fabricate(:user) }
+    let!(:store1) { Fabricate(:store) }
+    let!(:activity1) { Fabricate(:activity, user_id: user1.id, store_id: store1.id) }
+    let!(:trans1) { Fabricate(:transaction, user_id: user1.id) }
+    
+    it "returns proper available balance" do
+      expect(helper.available_balance(user1)).to eq(40)
+    end
+  end
 end

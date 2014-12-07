@@ -213,6 +213,10 @@ describe KohlsTransactions do
     it "returns 4 for Code" do
       expect(KohlsTransactions.find_kohls_type('Save with code SUNNY50')).to eq([4])
     end
+
+    it "returns 6 for sitewide" do
+      expect(KohlsTransactions.find_kohls_type('today only sitewide')).to eq([6])
+    end
   end
 
   describe "find_coupon_code" do
