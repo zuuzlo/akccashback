@@ -585,7 +585,7 @@ $breadcrumb-active-color:     $gray-light;
 
 $carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
 
-$carousel-control-color:                      #fff;
+$carousel-control-color:                      $gray-light; //#fff
 $carousel-control-width:                      15%;
 $carousel-control-opacity:                    .5;
 $carousel-control-font-size:                  20px;
@@ -707,6 +707,12 @@ $container-lg-desktop:        ((1140px + $grid-gutter-width));
   
 }
 
+.coupon_header {
+  padding-bottom: 9px;
+  margin: 10px 0 20px;
+  border-bottom: 1px solid $gray-lighter;
+}
+
 .thumbnail.coupon {
   min-height:500px
 }
@@ -735,6 +741,9 @@ a.store_img:hover, a.store_img:focus, a.store_img:active {
 }
 
 /* Carousel */
+.carousel {
+  margin-top: 45px;
+}
 .carousel-caption, .carousel-control {
   color: #d8118d !important;
 }
