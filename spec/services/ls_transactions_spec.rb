@@ -3,9 +3,9 @@ require "recursive_open_struct"
 
 describe LsTransactions do
   describe "ls_activity" do
-    let!(:user1) { Fabricate( :user, verified_email: true , cashback_id: 'user1') }
-    let!(:akccb) { Fabricate( :user, verified_email: true , cashback_id: 'akccb') }
-    let!(:na) { Fabricate( :user, verified_email: true , cashback_id: "N/A") }
+    let!(:user1) { Fabricate( :user, user_name: 'user1', verified_email: true , cashback_id: 'user1') }
+    let!(:akccb) { Fabricate( :user, user_name: 'akccb', verified_email: true , cashback_id: 'akccb') }
+    let!(:na) { Fabricate( :user, user_name: 'na', verified_email: true , cashback_id: "N/A") }
     let!(:store1) { Fabricate( :store, id_of_store: '38605' ) }
     
     before do
@@ -165,11 +165,11 @@ describe LsTransactions do
 
   describe "title_shorten" do
     it "return shorten title" do
-      expect(LsTransactions.title_shorten("Get More Easter for Your Money with Great Deals & Free Shipping on Orders at Walmart.com!")).to eq("Your Money With Great Deals & Free Shipping")
+      expect(LsTransactions.title_shorten("Get More Easter for Your Money with Great Deals & Free Shipping on Orders at Walmart.com!")).to eq("Great Deals & Free Shipping On Orders At Waltcom")
     end
 
     it "removes slashes that are either direction" do
-      expect(LsTransactions.title_shorten("$34.99 All Chaps Father & Son tie sets reg. $58. 6/4-6/10.")).to eq("Chaps Father & Son Tie Sets ")
+      expect(LsTransactions.title_shorten("$34.99 All Chaps Father & Son tie sets reg. $58. 6/4-6/10.")).to eq("Chaps Father & Son Tie Sets")
     end
   end
 end

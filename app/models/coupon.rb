@@ -52,11 +52,17 @@ class Coupon < ActiveRecord::Base
   def preview?
     if start_date > DateTime.now
       true
+    else
+      false
     end
   end
 
   def time_til_good
     distance_of_time_in_words(start_date, DateTime.now)
+  end
+
+  def self.active_coupons
+    where(["end_date >= :time", { :time => DateTime.current }]).order( 'end_date ASC' )
   end
 
   protected

@@ -175,5 +175,16 @@ describe CouponsController do
         expect(response).to redirect_to coupon1.link + "&u1=#{user1.cashback_id}"
       end
     end
+
+    context "coupon doesn't exist" do
+      let!(:coupon2) { coupon2 = Fabricate(:coupon, code: 'BUYNOW', description: 'good car', end_date: Time.now + 3.hour ) }
+      before do
+        get :coupon_link, id: 100
+      end
+
+      it "should redirect to link of last coupon plus added" do
+        expect(response).to redirect_to coupon2.link + "&u1=akccb"
+      end
+    end
   end
 end

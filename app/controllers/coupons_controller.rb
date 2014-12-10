@@ -86,7 +86,12 @@ class CouponsController < ApplicationController
   end
 
   def coupon_link
-    coupon = Coupon.find_by_id(params[:id])
+    if Coupon.exists?(params[:id])
+      coupon = Coupon.find_by_id(params[:id])
+    else
+      coupon = Coupon.last
+    end
+    
     if logged_in?
       if coupon.coupon_source_id == 1
         link = coupon.link + "&u1=" + current_user.cashback_id
@@ -100,7 +105,7 @@ class CouponsController < ApplicationController
         link = coupon.link + "?sid=akccb"
       end
     end
-    
+
     redirect_to link
   end
 end
