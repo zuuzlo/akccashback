@@ -11,7 +11,12 @@
     - if logged_in? 
       =render partial: 'shared/carousel', locals: { coupons: @cal_coupons }
     -else
-      = google_adsense_include_tag class: 'adsbygoogle', client: 'ca-pub-1902425673775970', slot: '1117298183', format: 'auto', style: 'display:block'
+      %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+      / cashback
+      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1902425673775970", "data-ad-format" => "auto", "data-ad-slot" => "1117298183", :style => "display:block"}
+      :javascript
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      = #google_adsense_include_tag class: 'adsbygoogle', client: 'ca-pub-1902425673775970', slot: '1117298183', format: 'auto', style: 'display:block'
 .coupon_header
 .row
   = render 'shared/coupon_tab_content'
