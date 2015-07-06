@@ -26,6 +26,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
+    ads-rails (0.2.0)
+      rails (>= 3.1.0, < 4.2.0)
     arel (4.0.2)
     aws-sdk (1.55.0)
       aws-sdk-v1 (= 1.55.0)
@@ -322,6 +324,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ads-rails
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
   bootstrap-datepicker-rails

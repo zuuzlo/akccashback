@@ -16,6 +16,7 @@ class CouponsController < ApplicationController
     @coupons = Coupon.search_by_title(params[:search_term])
     @term = params[:search_term]
     load_coupon_offer_code(@coupons)
+    load_cal_picts(@coupons)
   end
 
   def toggle_favorite

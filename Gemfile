@@ -20,6 +20,7 @@ gem 'nokogiri'
 gem 'faraday'
 gem 'roo'
 gem 'friendly_id', '~> 5.0.0'
+gem 'ads-rails'
 
 gem "sinatra", "~> 1.4.5"
 gem 'pg'

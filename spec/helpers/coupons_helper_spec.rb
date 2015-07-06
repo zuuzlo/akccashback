@@ -6,6 +6,9 @@ describe CouponsHelper do
   let(:store1) { Fabricate(:store)}
   let(:coupon1) { Fabricate(:coupon, store_id: store1.id, code: nil, image: nil ) }
   let(:coupon2) { Fabricate(:coupon, store_id: store1.id, code: 'BIGSALE') }
+  let(:kohls_category1) { Fabricate(:kohls_category, name: "cat" ) }
+  let(:kohls_only1) { Fabricate(:kohls_only, name: "only") }
+  let(:kohls_type1) { Fabricate(:kohls_type, name: "type") }
 
   describe "#button_link" do
     before do
@@ -113,6 +116,27 @@ describe CouponsHelper do
     it "returns info label" do
       coupon1.update_attribute(:start_date, DateTime.now + 2.days)
       expect(helper.not_released(coupon1)).to eq( "<span class='label label-info'>\n  <span class='glyphicon glyphicon-time'></span>\n  Valid in 2 days\n</span>\n" )
+    end
+  end
+
+  describe "#cache_key_for_coupon" do
+  end
+
+  describe "#show_ad?" do
+  end
+
+  describe "#category_links" do
+    it "doesn't return link for self category page display" 
+    # this test is taken care of in the indivial views for the links
+
+    it "returns links for kohls_category, kohls_only, kohls_type" do
+      coupon1.kohls_categories << kohls_category1
+      coupon1.kohls_types << kohls_type1
+      coupon1.kohls_onlies << kohls_only1
+      expect(helper.category_links(coupon1)).to eq("<a href=\"http://test.host/kohls_categories/cat\">cat</a>\n<a href=\"http://test.host/kohls_types/type\">type</a>\n<a href=\"http://test.host/kohls_onlies/only\">only</a>\n")
+    end
+    it "returns nothing if no categories" do
+      expect(helper.category_links(coupon1)).to be_nil
     end
   end
 end

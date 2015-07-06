@@ -1,1 +1,2 @@
-=link_to category.name, category_path(category)
+- if request.original_url != kohls_type_url(kohls_type)
+  = link_to kohls_type.name, kohls_type_url(kohls_type)

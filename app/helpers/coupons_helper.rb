@@ -90,4 +90,18 @@ module CouponsHelper
     max_updated_at = Coupon.maximum(:updated_at).try(:utc).try(:to_s, :number)
     "coupons/#{coupon.id}-#{count}-#{max_updated_at}"
   end
+
+  def show_ad?
+    prng = Random.new
+
+    if prng.rand(100) < 5
+      true
+    else
+      false
+    end
+  end
+
+  def category_links(coupon)
+    render coupon.kohls_categories + coupon.kohls_types + coupon.kohls_onlies
+  end
 end
