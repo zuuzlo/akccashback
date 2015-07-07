@@ -30,4 +30,6 @@ module ApplicationHelper
       "#{base_title} | #{page_title} Coupons and Deals".html_safe
     end
   end
+
+  
 end
