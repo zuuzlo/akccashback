@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery #with: :exception
 
   after_filter :flash_to_headers
-  helper_method :current_user, :logged_in?, :require_user
+  helper_method :current_user, :logged_in?, :require_user, :display_ad?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -21,6 +21,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def display_ad?
+    if Rails.env.development?
+      false
+    else
+      
+      if logged_in?
+        false
+      else
+        true
+      end
+    end
+  end
  
   private
  
