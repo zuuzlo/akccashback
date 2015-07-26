@@ -3,7 +3,7 @@ module CouponsHelper
   def button_link(coupon)
     link_to coupon_link_coupon_url(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to shop at #{coupon.store.name}.", "data-trigger" => "hover" do
       capture_haml do
-        haml_concat "Get Deal"
+        haml_concat "Shop Now"
         haml_tag 'span.glyphicon.glyphicon-chevron-right'
       end
     end

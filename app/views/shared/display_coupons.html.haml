@@ -14,6 +14,8 @@
   .coupon_header
   .row
     = render 'shared/coupon_tab_content'
+    %nav#page-nav
+      = will_paginate @coupons
 - else
   %h1 #{title.name}
   %p

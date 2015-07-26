@@ -1,0 +1,29 @@
+.l4.s4{ 'id' => "coupon_#{coupon.id}", 'data-type' => "#{coupon_type(coupon)}" }
+  .thumbnail.coupon
+    = product_image(coupon)
+    .caption
+      %h4 #{coupon.title.split("- ").last}
+      -if logged_in?
+        = favorites(controller_name, coupon)
+        = email_coupon(coupon)
+        = render partial: 'shared/coupon_modal', locals: { coupon: coupon }
+      .well.well-sm
+        %p
+          %b #{coupon.description}
+        -if coupon.code 
+          %h5
+            Coupon Code:
+            %b
+              #{coupon.code}
+        %span.label.label-default
+          #{coupon.store_commission} 
+          \% cash back
+      = button_link(coupon)
+      %h5
+        - if coupon.preview?
+          = not_released(coupon)
+        - else
+          = time_left_display(coupon)
+      %h5
+        = category_links(coupon)
+        

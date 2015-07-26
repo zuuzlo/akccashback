@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require masonry/jquery.masonry
+//= require isotope/jquery.isotope
+//= require masonry/jquery.infinitescroll.min
+//= require masonry/modernizr-transitions
 //= require turbolinks
 //= require_tree .
 // Include all twitter's javascripts
