@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804022551) do
+ActiveRecord::Schema.define(version: 20150804024501) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -42,14 +42,6 @@ ActiveRecord::Schema.define(version: 20150804022551) do
 
   add_index "coupons", ["coupon_source_id"], name: "index_coupons_on_coupon_source_id", using: :btree
   add_index "coupons", ["store_id"], name: "index_coupons_on_store_id", using: :btree
-
-  create_table "coupons_ctypes", force: true do |t|
-    t.integer "coupon_id"
-    t.integer "ctype_id"
-  end
-
-  add_index "coupons_ctypes", ["coupon_id"], name: "index_coupons_ctypes_on_coupon_id", using: :btree
-  add_index "coupons_ctypes", ["ctype_id"], name: "index_coupons_ctypes_on_ctype_id", using: :btree
 
   create_table "coupons_kohls_categories", id: false, force: true do |t|
     t.integer "coupon_id",         null: false
@@ -82,16 +74,6 @@ ActiveRecord::Schema.define(version: 20150804022551) do
 
   add_index "coupons_users", ["coupon_id"], name: "index_coupons_users_on_coupon_id", using: :btree
   add_index "coupons_users", ["user_id"], name: "index_coupons_users_on_user_id", using: :btree
-
-  create_table "ctypes", force: true do |t|
-    t.string   "name"
-    t.integer  "ls_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-  end
-
-  add_index "ctypes", ["slug"], name: "index_ctypes_on_slug", using: :btree
 
   create_table "kohls_categories", force: true do |t|
     t.string   "name"
