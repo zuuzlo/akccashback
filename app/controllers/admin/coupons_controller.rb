@@ -83,6 +83,13 @@ class Admin::CouponsController < AdminController
     redirect_to admin_coupons_path
   end
 
+  def clean_tables
+    coupons = Coupon.all.each do | coupon|
+      
+    end
+
+  end
+
   def get_mailer_kohls_coupons
     @codes_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NOT NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)
     @offers_coupons = Coupon.where(["end_date >= :time AND start_date <= :time AND code IS NULL", { :time => DateTime.current }]).order( 'end_date ASC' ).limit(5)

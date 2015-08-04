@@ -7,11 +7,11 @@ class Coupon < ActiveRecord::Base
   before_save :nil_if_blank
 
   belongs_to :store
-  has_and_belongs_to_many :categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
+
+  
   has_and_belongs_to_many :kohls_categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :kohls_onlies, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :kohls_types, after_add: :touch_updated_at, after_remove: :touch_updated_at
-  has_and_belongs_to_many :ctypes, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :users
   
   validates :id_of_coupon, presence: true, uniqueness: true

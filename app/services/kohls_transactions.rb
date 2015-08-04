@@ -34,6 +34,7 @@ class KohlsTransactions
         name_check_raw = "#{item.linkName} #{item.textDisplay} #{item.categoryName}"
         
         if new_coupon.save
+=begin
           PjTransactions.pj_find_category(name_check).each do | cat |
             new_coupon.categories << Category.find_by_ls_id(cat) if cat
           end
@@ -41,7 +42,7 @@ class KohlsTransactions
           PjTransactions.pj_find_type(name_check_raw).each do | type_x |
             new_coupon.ctypes << Ctype.find_by_ls_id(type_x) if type_x
           end
-
+=end
           find_kohls_cat(name_check).each do | kohls_cat |
             new_coupon.kohls_categories << KohlsCategory.find_by_kc_id(kohls_cat) if kohls_cat
           end
