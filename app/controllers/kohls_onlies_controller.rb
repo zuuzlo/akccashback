@@ -1,6 +1,6 @@
 class KohlsOnliesController < ApplicationController
- include LoadCoupons
- include LoadSeo
+  include LoadCoupons
+  include LoadSeo
   
   def show
     @only = KohlsOnly.friendly.find(params[:id])
