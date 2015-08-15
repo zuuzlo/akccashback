@@ -11,13 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require masonry/jquery.masonry
 //= require isotope/jquery.isotope
 //= require masonry/jquery.infinitescroll.min
 //= require masonry/modernizr-transitions
 //= require turbolinks
+//= require holder
 //= require_tree .
 // Include all twitter's javascripts
-//= require bootstrap
-//= require holder
+//require bootstrap

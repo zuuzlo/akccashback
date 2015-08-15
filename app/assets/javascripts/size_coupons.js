@@ -1,8 +1,6 @@
 var ready;
 ready = function(){
-  $( ".thumbnail.coupon" ).equalizeHeights()
-  $( ".well.store" ).equalizeHeights()
-  $(".store_img").popover()
+  //$( ".well.store" ).equalizeHeights()
   $(".link_button").popover()
   $(".fav_toggle").tooltip()
   $(".email_tool_tip").tooltip()

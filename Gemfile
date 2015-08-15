@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0'
-gem 'bootstrap-sass', '~> 3.1.0'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
 gem 'bootstrap_form', '~> 2.1.1'
 gem 'jquery-rails'
 gem 'turbolinks'
@@ -44,6 +45,7 @@ gem 'memcachier'
 
 gem 'will_paginate-bootstrap'
 gem 'masonry-rails'
+gem 'jquery-turbolinks'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

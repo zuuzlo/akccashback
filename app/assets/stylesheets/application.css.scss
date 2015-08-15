@@ -649,7 +649,7 @@ $container-lg-desktop:        ((1140px + $grid-gutter-width));
 
 
 
-
+@import "bootstrap-sprockets";
 @import 'bootstrap';
  
 .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8, .c9, .c10, .c11, .c12,
@@ -685,6 +685,15 @@ $container-lg-desktop:        ((1140px + $grid-gutter-width));
 }
 
 //= require rails_bootstrap_forms
+
+// Masonry 
+//= require 'masonry/basic'
+//= require 'masonry/centered'
+//= require 'masonry/fluid'
+//= require 'masonry/gutters'
+//= require 'masonry/infinitescroll'
+//= require 'masonry/right-to-left'
+//= require 'masonry/transitions'
  
 // Generate grid for tiny devises
 @include grid-shortcuts($prefix: 'c');
@@ -702,6 +711,7 @@ $container-lg-desktop:        ((1140px + $grid-gutter-width));
 /* general */
   
 /* coupon */
+.centered { margin: 0 auto; }
 
 #coupons {
   margin: 0 auto;
