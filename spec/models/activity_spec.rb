@@ -7,7 +7,7 @@ describe Activity do
   it { should validate_presence_of(:user_id) }
 
   let(:store1)  { Fabricate(:store, name: 'store1', commission: 4 ) }
-  let(:user1) { Fabricate(:user, full_name: 'user1') }
+  let(:user1) { Fabricate(:user, user_name: 'user1') }
   let(:activity1) { Fabricate(:activity, user_id: user1.id, store_id: store1.id) }
 
   describe "#user_name" do

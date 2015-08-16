@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe KohlsCategory do
 
-  it { should have_and_belong_to_many(:coupons) }
+  it { should have_many(:coupons).through(:coupon_kohls_categories) }
   it { should validate_presence_of(:name) }
 
   let(:computers) {Fabricate(:kohls_category, name: "computers") }

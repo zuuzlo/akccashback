@@ -78,7 +78,7 @@ class Admin::CouponsController < AdminController
     Coupon.all.each do | coupon |
       delete_coupons << coupon.id if coupon.end_date < Time.now
     end
-    Coupon.delete(delete_coupons)
+    Coupon.destroy(delete_coupons)
     flash[:success] = "Deleted #{delete_coupons.count} coupons."
     redirect_to admin_coupons_path
   end

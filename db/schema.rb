@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810023716) do
+ActiveRecord::Schema.define(version: 20150816174338) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(version: 20150810023716) do
 
   add_index "coupon_kohls_categories", ["coupon_id"], name: "index_coupon_kohls_categories_on_coupon_id", using: :btree
   add_index "coupon_kohls_categories", ["kohls_category_id"], name: "index_coupon_kohls_categories_on_kohls_category_id", using: :btree
+
+  create_table "coupon_kohls_onlies", force: true do |t|
+    t.integer "coupon_id",     null: false
+    t.integer "kohls_only_id", null: false
+  end
+
+  add_index "coupon_kohls_onlies", ["coupon_id"], name: "index_coupon_kohls_onlies_on_coupon_id", using: :btree
+  add_index "coupon_kohls_onlies", ["kohls_only_id"], name: "index_coupon_kohls_onlies_on_kohls_only_id", using: :btree
 
   create_table "coupons", force: true do |t|
     t.string   "id_of_coupon"
@@ -50,14 +58,6 @@ ActiveRecord::Schema.define(version: 20150810023716) do
 
   add_index "coupons", ["coupon_source_id"], name: "index_coupons_on_coupon_source_id", using: :btree
   add_index "coupons", ["store_id"], name: "index_coupons_on_store_id", using: :btree
-
-  create_table "coupons_kohls_onlies", id: false, force: true do |t|
-    t.integer "coupon_id",     null: false
-    t.integer "kohls_only_id", null: false
-  end
-
-  add_index "coupons_kohls_onlies", ["coupon_id"], name: "index_coupons_kohls_onlies_on_coupon_id", using: :btree
-  add_index "coupons_kohls_onlies", ["kohls_only_id"], name: "index_coupons_kohls_onlies_on_kohls_only_id", using: :btree
 
   create_table "coupons_kohls_types", id: false, force: true do |t|
     t.integer "coupon_id",     null: false

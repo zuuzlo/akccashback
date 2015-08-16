@@ -5,17 +5,18 @@ class Coupon < ActiveRecord::Base
 
   NULL_ATTRS = %w( code restriction )
 
-  before_destroy { |coupon| coupon.kohls_categories.destroy_all }
   
   before_save :nil_if_blank
 
   belongs_to :store
 
-  has_many :coupon_kohls_categories
+  has_many :coupon_kohls_categories, dependent: :destroy
   has_many :kohls_categories, :through => :coupon_kohls_categories
   
+  has_many :coupon_kohls_onlies, dependent: :destroy
+  has_many :kohls_onlies, :through => :coupon_kohls_onlies
   #has_and_belongs_to_many :kohls_categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
-  has_and_belongs_to_many :kohls_onlies, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  #has_and_belongs_to_many :kohls_onlies, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :kohls_types, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :users
   
