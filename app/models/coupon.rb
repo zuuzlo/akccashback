@@ -15,9 +15,13 @@ class Coupon < ActiveRecord::Base
   
   has_many :coupon_kohls_onlies, dependent: :destroy
   has_many :kohls_onlies, :through => :coupon_kohls_onlies
+  
+  has_many :coupon_kohls_types, dependent: :destroy
+  has_many :kohls_types, :through => :coupon_kohls_types
+
   #has_and_belongs_to_many :kohls_categories, after_add: :touch_updated_at, after_remove: :touch_updated_at
   #has_and_belongs_to_many :kohls_onlies, after_add: :touch_updated_at, after_remove: :touch_updated_at
-  has_and_belongs_to_many :kohls_types, after_add: :touch_updated_at, after_remove: :touch_updated_at
+  #has_and_belongs_to_many :kohls_types, after_add: :touch_updated_at, after_remove: :touch_updated_at
   has_and_belongs_to_many :users
   
   validates :id_of_coupon, presence: true, uniqueness: true
