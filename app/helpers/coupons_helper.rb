@@ -1,7 +1,7 @@
 module CouponsHelper
 
   def button_link(coupon)
-    link_to coupon_link_coupon_url(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank", "data-container" =>"body", "data-toggle" => "popover", "data-placement" => "right", "data-content" => "Click to shop at #{coupon.store.name}.", "data-trigger" => "hover" do
+    link_to coupon_link_coupon_url(coupon), class: "btn btn-primary link_button", rel: "nofollow", target: "_blank" do
       capture_haml do
         haml_concat "Shop Now"
         haml_tag 'span.glyphicon.glyphicon-chevron-right'
@@ -103,5 +103,29 @@ module CouponsHelper
 
   def category_links(coupon)
     render coupon.kohls_categories + coupon.kohls_types + coupon.kohls_onlies
+  end
+
+  def reveal_code_button(coupon)
+    link_to reveal_code_link_coupon_url(coupon), method: 'get', remote: true, class: "btn btn-default btn-xs", id: "coupon_reveal_button_#{coupon.id}", rel: "nofollow" do
+      #, onclick: "window.open('#','_blank');"
+      capture_haml do
+        haml_concat "Reveal Code"
+      end
+    end
+
+=begin    
+    link_to reveal_code_link_coupon_url(coupon), class: "btn btn-default btn-xs", id: "coupon_reveal_button_#{coupon.id}", rel: "nofollow", target: "_blank", "data-toggle" => "modal", "data-target" => "#coupon_reveal_modal_#{coupon.id}" do
+      capture_haml do
+        haml_concat "Reveal Code"
+      end
+    end
+#=end
+=begin
+    button_tag(nil, class: "btn btn-default btn-xs", id: "coupon_reveal_button_#{coupon.id}", "data-toggle" => "modal", "data-target" => "#coupon_reveal_modal_#{coupon.id}", "container" => 'body') do
+      capture_haml do
+        haml_concat "Reveal Code"
+      end
+    end
+=end
   end
 end

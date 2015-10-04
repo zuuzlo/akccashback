@@ -11,12 +11,19 @@
       = render partial: 'shared/coupon_modal', locals: { coupon: coupon }
     .well.well-sm.coupon_well
       %p
-        #{coupon.description}
+        -if logged_in? || coupon_type(coupon) == "offers" 
+          #{coupon.description}
+        -else
+          #{coupon.description.gsub("#{coupon.code}", "--------")}
       -if coupon.code 
         %h6
           Coupon Code:
-          %b
-            #{coupon.code}
+          -if logged_in?
+            %b
+              #{coupon.code}
+          -else
+            = reveal_code_button(coupon)
+            //= render partial: 'shared/coupon_reveal_modal', locals: { coupon: coupon }
       -if logged_in?
         %span.label.label-default
           #{coupon.store_commission} 

@@ -1,9 +1,10 @@
 var ready;
 ready = function(){
   //$( ".well.store" ).equalizeHeights()
-  $(".link_button").popover()
-  $(".fav_toggle").tooltip()
-  $(".email_tool_tip").tooltip()
+  //$(".link_button").popover()
+  $(".fav_toggle").tooltip();
+  $(".email_tool_tip").tooltip();
+  $("#message_modal").modal('show');
 };
 $(document).ready(ready);
 $(document).on("page:load", ready);

@@ -48,6 +48,7 @@ Akccashback::Application.routes.draw do
       post 'toggle_favorite'
       post 'email_coupon'
       get 'coupon_link'
+      get 'reveal_code_link'
     end
 
     collection do

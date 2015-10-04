@@ -15,3 +15,6 @@
 .coupon_header
 .row
   = render 'shared/coupon_tab_content'
+  #coupon_modal
+  %nav#page-nav
+    = will_paginate @coupons

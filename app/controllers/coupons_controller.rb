@@ -6,7 +6,7 @@ class CouponsController < ApplicationController
   before_filter :require_user, only:[:toggle_favorite, :email_coupon]
 
   def index
-    @coupons = Coupon.where(["end_date >= :time ", { :time => DateTime.current }]).order( 'end_date ASC' )
+    @coupons = Coupon.active_coupons.paginate(:page => params[:page]).order( 'end_date ASC' )
     load_coupon_offer_code(@coupons)
     load_cal_picts(@coupons)
     render :index, locals: { title: "Home", meta_keywords: seo_keywords(@coupons, nil), meta_description: seo_description(@coupons, nil ) } 
@@ -108,5 +108,19 @@ class CouponsController < ApplicationController
     end
 
     redirect_to link
+  end
+
+  def reveal_code_link
+    if Coupon.exists?(params[:id])
+      @coupon = Coupon.find_by_id(params[:id])
+    else
+      @coupon = Coupon.last
+    end
+ 
+    respond_to do |format|
+      format.html do
+      end
+      format.js
+    end
   end
 end

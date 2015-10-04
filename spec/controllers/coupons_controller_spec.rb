@@ -187,4 +187,16 @@ describe CouponsController do
       end
     end
   end
+
+  describe "GET reveal_code" do
+    let!(:coupon1) { coupon1 = Fabricate(:coupon, code: 'BUYNOW', description: 'good car', end_date: Time.now + 3.hour ) }
+    context "no user" do
+      before { get :revel_code, id: coupon1.id }
+
+      it "finds coupon and code"
+      it "desplays modal"
+      it "opens a link page"
+
+    end
+  end
 end
