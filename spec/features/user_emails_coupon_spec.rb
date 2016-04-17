@@ -15,7 +15,7 @@ feature 'User emails coupon' do
     sign_in_now
     find("#coupon_email_button_1").click
     fill_in_modal('test@test.com')
-    page.should have_content "You have emailed test@test.com the coupon."
+    page.should have_content "You have send the coupon to test@test.com"
   end
 
   scenario "session user sends coupon email invalid email", :js => true do

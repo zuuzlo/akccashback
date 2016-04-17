@@ -99,63 +99,7 @@ describe LsTransactions do
     end
   end
 
-  describe "ls_update_coupons" do
-    
-    context "id is not existing coupon" do
-      let!(:cat1) { Fabricate(:category, ls_id: 1 ) }
-      let!(:cat2) { Fabricate(:category, ls_id: 2 ) }
-      let!(:ctype1) { Fabricate(:ctype, ls_id: 1) }
-      let!(:ctype2) { Fabricate(:ctype, ls_id: 2) }
-      let!(:store1) { Fabricate(:store, id_of_store: 24572)}
-      before do
-        a = [ { "categories"=>{"category"=>[{"__content__"=>"Department Store", "id"=>"2"}, {"__content__"=>"Electronic Equipment", "id"=>"1"}]}, "promotiontypes"=>{"promotiontype"=>[{"__content__"=>"Free Shipping", "id"=>"1"}, {"__content__"=>"Percentage off", "id"=>"1"}]}, "offerdescription"=>"Weekend Sale! Save 8% ! Free Shipping on Most Items!", "offerstartdate"=>"2014-04-11", "offerenddate"=>"", "couponcode"=>"APRL8", "couponrestriction"=>"On Orders of $69", "clickurl"=>"http://click.linksynergy.com/fs-bin/click?id=V8uMkWlCTes&offerid=272227.10001315&type=3&subid=0", "impressionpixel"=>"http://ad.linksynergy.com/fs-bin/show?id=V8uMkWlCTes&bids=272227.10001315&type=3&subid=0", "advertiserid"=>"24572", "advertisername"=>"Cascio Interstate Music", "network"=>{"__content__"=>"US Network", "id"=>"1"} } ]
-
-        response = []
-        a.each do | b |
-          response << RecursiveOpenStruct.new( b, :recurse_over_arrays => true )
-        end
-
-        LinkshareAPI.stub_chain(:coupon_web_service,:all).and_return( response )
-        LsTransactions.ls_update_coupons
-      end
-      it "creates new coupon" do
-        expect(Coupon.count).to eq(1)
-      end
-
-      it "adds enddate if it does not exist" do
-        expect(Coupon.first.end_date).to eq(Time.parse('2017-1-1'))
-      end
-
-      it "adds coupon to categories" do
-        expect(Coupon.first.categories.count).to eq(2)
-      end
-
-      it "adds coupon to ctypes" do
-        expect(Coupon.first.ctypes.count).to eq(2)
-      end
-    end
-    
-    context "id exists already" do
-      let!(:store1) { Fabricate(:store, id_of_store: 24572)}
-      let!(:coupon1) { Fabricate(:coupon, id_of_coupon: "24572310001315" ) }
-
-      before do
-        a = [ { "categories"=>{"category"=>[{"__content__"=>"Department Store", "id"=>"2"}, {"__content__"=>"Electronic Equipment", "id"=>"1"}]}, "promotiontypes"=>{"promotiontype"=>[{"__content__"=>"Free Shipping", "id"=>"1"}, {"__content__"=>"Percentage off", "id"=>"1"}]}, "offerdescription"=>"Weekend Sale! Save 8% ! Free Shipping on Most Items!", "offerstartdate"=>"2014-04-11", "offerenddate"=>"", "couponcode"=>"APRL8", "couponrestriction"=>"On Orders of $69", "clickurl"=>"http://click.linksynergy.com/fs-bin/click?id=V8uMkWlCTes&offerid=272227.10001315&type=3&subid=0", "impressionpixel"=>"http://ad.linksynergy.com/fs-bin/show?id=V8uMkWlCTes&bids=272227.10001315&type=3&subid=0", "advertiserid"=>"24572", "advertisername"=>"Cascio Interstate Music", "network"=>{"__content__"=>"US Network", "id"=>"1"} } ]
-        
-        response = []
-        a.each do | b |
-          response << RecursiveOpenStruct.new( b, :recurse_over_arrays => true )
-        end
-
-        LinkshareAPI.stub_chain(:coupon_web_service,:all).and_return( response )
-        LsTransactions.ls_update_coupons
-      end
-      
-      it "does not save coupon" do
-        expect(Coupon.count).to eq(1)
-      end
-    end
-  end
+  
 
   describe "ls_coupon_id" do
     it "should return correct id" do

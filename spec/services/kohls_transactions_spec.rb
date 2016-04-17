@@ -3,12 +3,14 @@ require "recursive_open_struct"
 
 describe KohlsTransactions do
   describe "kohls_update_coupons" do
+=begin
     let!(:cat1) { Fabricate(:category, ls_id: 1 ) }
     let!(:cat2) { Fabricate(:category, ls_id: 5 ) }
     let!(:cat3) { Fabricate(:category, ls_id: 20 ) }
     let!(:ctype1) { Fabricate(:ctype, ls_id: 1) }
     let!(:ctype2) { Fabricate(:ctype, ls_id: 2) }
     let!(:ctype3) { Fabricate(:ctype, ls_id: 11) }
+=end
     
     let!(:ktype1) { Fabricate(:kohls_type, kc_id: 5) }
     let!(:ktype2) { Fabricate(:kohls_type, kc_id: 20) }
@@ -29,7 +31,7 @@ describe KohlsTransactions do
       XML
       stub_request(
         :get,
-        "http://lld2.linksynergy.com/services/restLinks/getTextLinks/06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203/38605/-1//#{Time.now.strftime("%m%d%Y")}/-1/1"
+        "http://lld2.linksynergy.com/services/restLinks/getTextLinks/e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007/38605/-1//#{Time.now.strftime("%m%d%Y")}/-1/1"
       ).
       to_return(
         status: 200,
@@ -43,7 +45,7 @@ describe KohlsTransactions do
 
       stub_request(
         :get,
-        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=apparel%20homepage&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=apparel%20homepage&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
       ).
       to_return(
         status: 200,
@@ -57,7 +59,7 @@ describe KohlsTransactions do
 
       stub_request(
         :get,
-        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=car%20men&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=car%20men&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
       ).
       to_return(
         status: 200,
@@ -71,7 +73,7 @@ describe KohlsTransactions do
 
       stub_request(
         :get,
-        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=dads%20day%20sale%20sunny%20grills%20conrad%20default&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+        "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=dads%20day%20sale%20sunny%20grills%20conrad%20default&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
       ).
       to_return(
         status: 200,
@@ -93,14 +95,6 @@ describe KohlsTransactions do
 
       it "adds endDate if it does not exist" do
         expect(Coupon.first.end_date.strftime("%m%d%Y")).to eq('01012017')
-      end
-
-      it "adds category" do
-        expect(Coupon.first.categories).to eq([cat3, cat1])
-      end
-
-      it "adds type" do
-        expect(Coupon.find(2).ctypes).to eq([ctype2])
       end
 
       it "adds coupon to kohls_category" do
@@ -237,7 +231,7 @@ describe KohlsTransactions do
         XML
         stub_request(
           :get,
-          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=pyrex%20corningware%20food%20prep&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=pyrex%20corningware%20food%20prep&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
         ).
         to_return(
           status: 200,
@@ -250,7 +244,7 @@ describe KohlsTransactions do
         XML
         stub_request(
           :get,
-          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=kohls&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=kohls&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
         ).
         to_return(
           status: 200,
@@ -277,7 +271,7 @@ describe KohlsTransactions do
         XML
         stub_request(
           :get,
-          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=sqw&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+          "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=sqw&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
         ).
         to_return(
           status: 200,

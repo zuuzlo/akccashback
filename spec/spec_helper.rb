@@ -11,6 +11,19 @@ require 'capybara/email/rspec'
 require 'sidekiq/testing/inline'
 require 'vcr'
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+    # Choose one or more libraries:
+    #with.library :active_record
+    #with.library :active_model
+    #with.library :action_controller
+    # Or, choose the following (which implies all of the above):
+    with.library :rails
+  end
+end
+
 Capybara.javascript_driver = :selenium #:webkit
 #Capybara.default_driver = :selenium
 =begin
@@ -18,6 +31,7 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 =end
+
 WebMock.disable_net_connect!(:allow_localhost => true)
 
 # Requires supporting ruby files with custom matchers and macros, etc,

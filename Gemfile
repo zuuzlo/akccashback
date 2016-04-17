@@ -5,6 +5,9 @@ gem 'rails', '4.0.0'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'bootstrap_form', '~> 2.1.1'
+
+#gem 'sprockets-rails', '~> 2.1.4.'
+
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'fabrication'
@@ -27,8 +30,8 @@ gem "sinatra", "~> 1.4.5"
 gem 'pg'
 gem 'bootstrap-datepicker-rails'
 
-gem 'sidekiq'
-gem 'redis'
+gem 'sidekiq', '~> 4.1.1'
+gem 'redis', '~>3.2'
 gem 'unicorn'
 
 gem 'high_voltage'
@@ -73,7 +76,7 @@ end
 
 group :development, :test do
   gem "chromedriver-helper"
-  gem "rspec-rails", "~> 2.14.1 "
+  gem "rspec-rails", "~> 2.14.1"
   gem 'factory_girl_rails'
   gem 'pry'
   gem 'pry-nav'
@@ -82,13 +85,13 @@ end
 group :test do
   gem "shoulda-matchers"
   gem "faker", "~> 1.2.0"
-  gem "capybara", "~> 2.0.2"
+  gem "capybara", "~> 2.6"
   gem "database_cleaner", "~> 1.2.0"
   gem "launchy", "~> 2.2.0"
-  gem 'capybara-email'
-  gem "selenium-webdriver", "~> 2.43.0"
+  gem 'capybara-email', "~> 2.5"
+  gem "selenium-webdriver", "~> 2.53.0"
   gem "vcr"
   gem "webmock", "~> 1.11.0"
-  gem "capybara-webkit"
+  gem "capybara-webkit", "~> 1.10.1"
   gem "recursive-open-struct", "~> 0.5.0"
 end

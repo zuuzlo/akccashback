@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe KohlsType do
-  it { should have_and_belong_to_many(:coupons) }
+  it { should have_many(:coupon_kohls_types) }
+  it { should have_many(:coupons).through(:coupon_kohls_types) }
   it { should validate_presence_of(:name) }
 
   let(:computers) {Fabricate(:kohls_type, name: "computers") }

@@ -18,7 +18,7 @@ describe CouponsHelper do
     end
 
     it "returns correct button link" do
-      expect(helper.button_link(coupon1)).to eq("<a class=\"btn btn-primary link_button\" data-container=\"body\" data-content=\"Click to shop at #{store1.name}.\" data-placement=\"right\" data-toggle=\"popover\" data-trigger=\"hover\" href=\"http://test.host/coupons/1/coupon_link\" rel=\"nofollow\" target=\"_blank\">Get Deal\n<span class='glyphicon glyphicon-chevron-right'></span>\n</a>")
+      expect(helper.button_link(coupon1)).to eq("<a class=\"btn btn-primary link_button\" href=\"http://test.host/coupons/1/coupon_link\" rel=\"nofollow\" target=\"_blank\">Shop Now\n<span class='glyphicon glyphicon-chevron-right'></span>\n</a>")
     end      
   end
 
@@ -137,6 +137,18 @@ describe CouponsHelper do
     end
     it "returns nothing if no categories" do
       expect(helper.category_links(coupon1)).to be_nil
+    end
+  end
+
+  describe "#reveal_code_button" do
+    before do
+      helper.extend Haml
+      helper.extend Haml::Helpers 
+      helper.send :init_haml_helpers
+    end
+
+    it "returns link to display coupon code" do
+      expect(helper.reveal_code_button(coupon1)).to eq("<a class=\"btn btn-default btn-xs\" data-method=\"get\" data-remote=\"true\" href=\"http://test.host/coupons/1/reveal_code_link\" id=\"coupon_reveal_button_1\" rel=\"nofollow\">Reveal Code\n</a>")
     end
   end
 end

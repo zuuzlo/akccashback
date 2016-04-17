@@ -237,13 +237,14 @@ describe Admin::CouponsController do
     end
 
     context "it gets new coupons" do
+=begin
       let!(:cat1) { Fabricate(:category, ls_id: 1 ) }
       let!(:cat2) { Fabricate(:category, ls_id: 5 ) }
       let!(:cat3) { Fabricate(:category, ls_id: 20 ) }
       let!(:ctype1) { Fabricate(:ctype, ls_id: 1) }
       let!(:ctype2) { Fabricate(:ctype, ls_id: 2) }
       let!(:ctype3) { Fabricate(:ctype, ls_id: 11) }
-      
+=end
       let!(:ktype1) { Fabricate(:kohls_type, kc_id: 5) }
       let!(:ktype2) { Fabricate(:kohls_type, kc_id: 20) }
       let!(:ktype3) { Fabricate(:kohls_type, kc_id: 6) }
@@ -262,7 +263,7 @@ describe Admin::CouponsController do
         XML
         stub_request(
           :get,
-          "http://lld2.linksynergy.com/services/restLinks/getTextLinks/06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203/38605/-1//#{Time.now.strftime("%m%d%Y")}/-1/1"         
+          "http://lld2.linksynergy.com/services/restLinks/getTextLinks/e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007/38605/-1//#{Time.now.strftime("%m%d%Y")}/-1/1"         
         ).
         to_return(
           status: 200,
@@ -275,7 +276,7 @@ describe Admin::CouponsController do
           XML
           stub_request(
             :get,
-            "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=apparel%20homepage&token=06a400a42d5ee2822cc4342b7cedf714bffa542768b1c06d571c0ebe8aa85203"
+            "http://productsearch.linksynergy.com/productsearch?max=1&mid=38605&one=apparel%20homepage&token=e1b43458f742b15f89715dd8824a1c6ce3bb328f12624c34f3c08eb2de4ad007"
 
           ).
           to_return(
